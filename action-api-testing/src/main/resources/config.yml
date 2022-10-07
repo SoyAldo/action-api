@@ -1,0 +1,15 @@
+types:
+  actionbar: "[actionbar] Hello, I am a action bar action!"
+  console: "[console] say Hello, I am a console action!"
+  message: "[message] Hello, I am a message action!"
+  player: "[player] say Hello, I am a player action!"
+  sound: "[sound] ENTITY_PLAYER_LEVELUP"
+
+messages:
+  onlyPlayers: "&cOnly players can be execute this command."
+  emptyArgs: "&cThe sub command is empty."
+  invalidArgs: "&cThe sub command is invalid."
+  reloaded: "&aReloaded."
+  emptyAction: "&cThe action type is empty."
+  invalidAction: "&cThe action type is invalid or not exist."
+  executed: "&aThe action has been executed."

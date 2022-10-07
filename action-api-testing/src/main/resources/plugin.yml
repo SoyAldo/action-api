@@ -1,0 +1,9 @@
+name: action-api-testing
+version: '${project.version}'
+main: org.kayteam.actionapitesting.ActionApiTesting
+api-version: 1.13
+authors: [ Soyaldo ]
+description: action-api testing plugin.
+commands:
+  ActionApiTesting:
+    description: "With this command you can test actions and reload this plugin."
