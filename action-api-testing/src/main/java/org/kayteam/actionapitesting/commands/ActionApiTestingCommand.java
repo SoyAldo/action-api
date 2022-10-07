@@ -51,6 +51,8 @@ public class ActionApiTestingCommand implements CommandExecutor , TabCompleter {
 
         if ( subcommand.equalsIgnoreCase( "reload" ) ) {
 
+            actionApiTesting.onReload();
+
             sender.sendMessage( ChatColor.translateAlternateColorCodes( '&' , config.getString( "messages.reloaded" ) ) );
 
         } else if ( subcommand.equalsIgnoreCase( "test" ) ) {

@@ -22,12 +22,16 @@ public final class ActionApiTesting extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-    }
+    public void onDisable() { }
 
+    public void onReload() {
 
-    public ActionManager getActionManager() {
-        return actionManager;
+        try {
+
+            getConfig().load( new File( getDataFolder() + "config.yml") );
+
+        } catch ( Exception ignore ) { }
+
     }
 
     private void registerFiles() {
@@ -51,6 +55,12 @@ public final class ActionApiTesting extends JavaPlugin {
         getCommand( "ActionApiTesting" ).setExecutor( new ActionApiTestingCommand( this ) );
 
         getCommand( "ActionApiTesting" ).setTabCompleter( new ActionApiTestingCommand( this ) );
+
+    }
+
+    public ActionManager getActionManager() {
+
+        return actionManager;
 
     }
 
