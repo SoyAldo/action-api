@@ -19,7 +19,7 @@ public class Actions {
     }
 
     public void addAction( Action action ) {
-        actions.put( action.getType() , action );
+        actions.put( action.getFormat() , action );
     }
 
     public Action getAction( String format ) {

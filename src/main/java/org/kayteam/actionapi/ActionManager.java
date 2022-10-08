@@ -74,7 +74,13 @@ public class ActionManager {
 
         if ( actionExpansion != null ) action = actionExpansion.generateAction( format );
 
-        if ( action != null ) action.setActionManager( this );
+        if ( action != null ) {
+
+            action.setFormat( format );
+
+            action.setActionManager( this );
+
+        }
 
         return action;
 

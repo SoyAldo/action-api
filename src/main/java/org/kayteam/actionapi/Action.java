@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 public abstract class Action {
 
     private ActionManager actionManager;
+    private String format;
     private final String type, value;
 
     protected Action( String type , String value ) {
@@ -18,6 +19,14 @@ public abstract class Action {
 
     public void setActionManager( ActionManager actionManager ) {
         this.actionManager = actionManager;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
     }
 
     public String getType() {
