@@ -13,11 +13,7 @@ public class MessageExpansion extends ActionExpansion {
 
     @Override
     public Action generateAction( String format ) {
-
-        String value = ActionUtil.getValue( format );
-
-        return new MessageAction( value );
-
+        return new MessageAction( ActionUtil.getValue( format ) );
     }
 
 }

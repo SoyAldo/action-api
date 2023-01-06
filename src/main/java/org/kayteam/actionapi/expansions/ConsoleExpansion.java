@@ -13,11 +13,7 @@ public class ConsoleExpansion extends ActionExpansion {
 
     @Override
     public Action generateAction( String format ) {
-
-        String value = ActionUtil.getValue( format );
-
-        return new ConsoleAction( value );
-
+        return new ConsoleAction( ActionUtil.getValue( format ) );
     }
 
 }

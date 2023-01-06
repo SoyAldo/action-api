@@ -15,15 +15,17 @@ public class ActionBarAction extends Action {
 
     @Override
     public void execute( Player player ) {
-
         String realValue = getValue();
 
         realValue = PlaceholderAPIUtil.setPlaceholders( player , realValue );
-
         realValue = ChatColor.translateAlternateColorCodes( '&' , realValue );
 
         player.spigot().sendMessage( ChatMessageType.ACTION_BAR , TextComponent.fromLegacyText( realValue ) );
+    }
 
+    @Override
+    public void execute( Player player , Object data ) {
+        execute( player );
     }
 
 }

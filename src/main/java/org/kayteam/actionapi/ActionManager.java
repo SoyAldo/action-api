@@ -1,5 +1,6 @@
 package org.kayteam.actionapi;
 
+import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,27 +13,24 @@ import java.util.List;
 
 public class ActionManager {
 
-    private final JavaPlugin javaPlugin;
-    private Economy economy = null;
-    private final HashMap< String , ActionExpansion > actionExpansions = new HashMap<>();
+    @Getter private final JavaPlugin javaPlugin;
+    @Getter private Economy economy;
+    @Getter private final HashMap<String, ActionExpansion> actionExpansions;
 
     public ActionManager(JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
-    }
-
-    public JavaPlugin getJavaPlugin() {
-        return javaPlugin;
+        economy = null;
+        actionExpansions = new HashMap<>();
     }
 
     public void registerManager() {
+        if (VaultUtil.isEconomyEnabled()) economy = VaultUtil.getEconomy();
 
-        if ( VaultUtil.isEconomyEnabled() ) economy = VaultUtil.getEconomy();
-
-        addActionExpansion( new ActionBarExpansion() );
-        addActionExpansion( new ConsoleExpansion() );
-        addActionExpansion( new MessageExpansion() );
-        addActionExpansion( new PlayerExpansion() );
-        addActionExpansion( new SoundExpansion() );
+        addActionExpansion(new ActionBarExpansion());
+        addActionExpansion(new ConsoleExpansion());
+        addActionExpansion(new MessageExpansion());
+        addActionExpansion(new PlayerExpansion());
+        addActionExpansion(new SoundExpansion());
 
     }
 
@@ -40,71 +38,52 @@ public class ActionManager {
 
     }
 
-    public Economy getEconomy() {
-        return economy;
+
+    public boolean existActionExpansion(String type) {
+        return actionExpansions.containsKey(type);
     }
 
-    public HashMap< String , ActionExpansion > getActionExpansions() {
-        return actionExpansions;
+    public void addActionExpansion(ActionExpansion actionExpansion) {
+        actionExpansions.put(actionExpansion.getType(), actionExpansion);
     }
 
-    public boolean existActionExpansion( String type ) {
-        return actionExpansions.containsKey( type );
+    public void removeActionExpansion(String type) {
+        actionExpansions.remove(type);
     }
 
-    public void addActionExpansion( ActionExpansion actionExpansion ) {
-        this.actionExpansions.put( actionExpansion.getType() , actionExpansion );
+    public ActionExpansion getActionExpansion(String type) {
+        return actionExpansions.get(type);
     }
 
-    public void removeActionExpansion( String type ) {
-        actionExpansions.remove( type );
-    }
+    public Action loadAction(String format) {
+        String type = ActionUtil.getType(format);
 
-    public ActionExpansion getActionExpansion( String type ) {
-        return actionExpansions.get( type );
-    }
+        ActionExpansion actionExpansion = this.actionExpansions.get(type);
 
-    public Action loadAction( String format ) {
+        if (actionExpansion == null) return null;
 
-        Action action = null;
+        Action action = actionExpansion.generateAction(format);
 
-        String type = ActionUtil.getType( format );
+        if (action == null) return null;
 
-        ActionExpansion actionExpansion = this.actionExpansions.get( type );
-
-        if ( actionExpansion != null ) action = actionExpansion.generateAction( format );
-
-        if ( action != null ) {
-
-            action.setFormat( format );
-
-            action.setActionManager( this );
-
-        }
+        action.setFormat(format);
+        action.setActionManager(this);
 
         return action;
-
     }
 
-    public Actions loadActions( List<String> formats ) {
-
+    public Actions loadActions(List<String> formats) {
         Actions actions = new Actions();
 
-        for ( String format : formats ) {
+        for (String format : formats) {
+            Action action = loadAction(format);
 
-            Action action = loadAction( format );
+            if (action == null) continue;
 
-            if ( action != null ) {
-
-                actions.addAction(action);
-
-            }
-
+            actions.addAction(action);
         }
 
         return actions;
-
     }
-
 
 }

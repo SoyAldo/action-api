@@ -14,15 +14,17 @@ public class MessageAction extends Action {
 
     @Override
     public void execute( Player player ) {
-
         String realValue = getValue();
 
         realValue = PlaceholderAPIUtil.setPlaceholders( player , realValue );
-
         realValue = ChatColor.translateAlternateColorCodes( '&' , realValue );
 
         player.sendMessage( realValue );
+    }
 
+    @Override
+    public void execute( Player player , Object data ) {
+        execute( player );
     }
 
 }

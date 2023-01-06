@@ -17,23 +17,23 @@ public class ConsoleAction extends Action {
 
     @Override
     public void execute( Player player ) {
-
         String realValue = getValue();
 
         realValue = PlaceholderAPIUtil.setPlaceholders( player , realValue );
-
         realValue = ChatColor.translateAlternateColorCodes( '&' , realValue );
 
         ActionManager actionManager = getActionManager();
 
         JavaPlugin javaPlugin = actionManager.getJavaPlugin();
-
         Server server = javaPlugin.getServer();
-
         ConsoleCommandSender consoleCommandSender = server.getConsoleSender();
 
         server.dispatchCommand( consoleCommandSender , realValue );
+    }
 
+    @Override
+    public void execute( Player player , Object data ) {
+        execute( player );
     }
 
 }

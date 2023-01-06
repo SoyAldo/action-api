@@ -13,11 +13,7 @@ public class SoundExpansion extends ActionExpansion {
 
     @Override
     public Action generateAction( String format ) {
-
-        String value = ActionUtil.getValue( format );
-
-        return new SoundAction( value );
-
+        return new SoundAction( ActionUtil.getValue( format ) );
     }
 
 }

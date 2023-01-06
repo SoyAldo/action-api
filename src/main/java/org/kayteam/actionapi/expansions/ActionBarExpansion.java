@@ -13,11 +13,7 @@ public class ActionBarExpansion extends ActionExpansion {
 
     @Override
     public Action generateAction( String format ) {
-
-        String value = ActionUtil.getValue( format );
-
-        return new ActionBarAction( value );
-
+        return new ActionBarAction( ActionUtil.getValue( format ) );
     }
 
 }

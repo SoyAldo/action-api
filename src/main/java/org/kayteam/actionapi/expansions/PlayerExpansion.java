@@ -13,11 +13,7 @@ public class PlayerExpansion extends ActionExpansion {
 
     @Override
     public Action generateAction( String format ) {
-
-        String value = ActionUtil.getValue( format );
-
-        return new PlayerAction( value );
-
+        return new PlayerAction( ActionUtil.getValue( format ) );
     }
 
 }
