@@ -2,18 +2,18 @@ package org.kayteam.actionapi.expansions;
 
 import org.kayteam.actionapi.Action;
 import org.kayteam.actionapi.ActionExpansion;
-import org.kayteam.actionapi.actions.ConsoleAction;
+import org.kayteam.actionapi.actions.EffectAction;
 import org.kayteam.actionapi.util.ActionUtil;
 
-public class ConsoleExpansion extends ActionExpansion {
+public class EffectExpansion extends ActionExpansion {
 
-    public ConsoleExpansion() {
-        super("console");
+    public EffectExpansion() {
+        super("effect");
     }
 
     @Override
     public Action generateAction(String format) {
-        return new ConsoleAction(ActionUtil.getValue(format));
+        return new EffectAction(ActionUtil.getValue(format));
     }
 
 }

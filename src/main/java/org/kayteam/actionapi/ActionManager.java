@@ -1,8 +1,8 @@
 package org.kayteam.actionapi;
 
-import lombok.Getter;
+import de.slikey.effectlib.EffectManager;
+import lombok.Data;
 import net.milkbowl.vault.economy.Economy;
-
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kayteam.actionapi.expansions.*;
 import org.kayteam.actionapi.util.ActionUtil;
@@ -11,31 +11,29 @@ import org.kayteam.actionapi.util.VaultUtil;
 import java.util.HashMap;
 import java.util.List;
 
+@Data
 public class ActionManager {
 
-    @Getter private final JavaPlugin javaPlugin;
-    @Getter private Economy economy;
-    @Getter private final HashMap<String, ActionExpansion> actionExpansions;
-
-    public ActionManager(JavaPlugin javaPlugin) {
-        this.javaPlugin = javaPlugin;
-        economy = null;
-        actionExpansions = new HashMap<>();
-    }
+    private final JavaPlugin javaPlugin;
+    private Economy economy = null;
+    private EffectManager effectManager;
+    private final HashMap<String, ActionExpansion> actionExpansions = new HashMap<>();
 
     public void registerManager() {
         if (VaultUtil.isEconomyEnabled()) economy = VaultUtil.getEconomy();
+
+        effectManager = new EffectManager(javaPlugin);
 
         addActionExpansion(new ActionBarExpansion());
         addActionExpansion(new ConsoleExpansion());
         addActionExpansion(new MessageExpansion());
         addActionExpansion(new PlayerExpansion());
         addActionExpansion(new SoundExpansion());
+        addActionExpansion(new EffectExpansion());
 
     }
 
     public void reloadManager() {
-
     }
 
 
@@ -56,33 +54,59 @@ public class ActionManager {
     }
 
     public Action loadAction(String format) {
-        String type = ActionUtil.getType(format);
+        // Get the action type of the format.
+        String actionType = ActionUtil.getType(format);
 
-        ActionExpansion actionExpansion = this.actionExpansions.get(type);
+        // Get the ActionExpansion corresponding to the type of action.
+        ActionExpansion actionExpansion = actionExpansions.get(actionType);
 
-        if (actionExpansion == null) return null;
+        // If the ActionExpansion is not null.
+        if (actionExpansion != null) {
 
-        Action action = actionExpansion.generateAction(format);
+            // Create a new Action by generating it with the ActionExpansion.
+            Action action = actionExpansion.generateAction(format);
 
-        if (action == null) return null;
+            // If the generated Action is not null.
+            if (action != null) {
 
-        action.setFormat(format);
-        action.setActionManager(this);
+                // Set the format to Action.
+                action.setFormat(format);
 
-        return action;
+                // Set the ActionManager to the Action.
+                action.setActionManager(this);
+
+                // Return the Action.
+                return action;
+
+            }
+
+        }
+
+        // Return null.
+        return null;
     }
 
     public Actions loadActions(List<String> formats) {
+        // Create a new Actions.
         Actions actions = new Actions();
 
+        // Iterate all formats.
         for (String format : formats) {
+
+            // Create a new Action from the load method with the format.
             Action action = loadAction(format);
 
-            if (action == null) continue;
+            // If Action created is not null.
+            if (action != null) {
 
-            actions.addAction(action);
+                // Add the Action to Actions.
+                actions.addAction(action);
+
+            }
+
         }
 
+        // Return the Actions.
         return actions;
     }
 
