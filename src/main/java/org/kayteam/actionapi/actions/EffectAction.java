@@ -1,6 +1,9 @@
 package org.kayteam.actionapi.actions;
 
 import de.slikey.effectlib.effect.HelixEffect;
+import de.slikey.effectlib.effect.VortexEffect;
+import de.slikey.effectlib.util.DynamicLocation;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.kayteam.actionapi.Action;
 
@@ -13,26 +16,34 @@ public class EffectAction extends Action {
     @Override
     public void execute(Player player) {
 
-        HelixEffect helixEffect = new HelixEffect(getActionManager().getEffectManager());
+        VortexEffect vortexEffect = new VortexEffect(getActionManager().getEffectManager());
 
-        helixEffect.setEntity(player);
+        vortexEffect.setEntity(player);
 
-        helixEffect.duration = 30 * 1000;
+        vortexEffect.setDynamicTarget(new DynamicLocation(player));
 
-        helixEffect.start();
+        vortexEffect.particle = Particle.VILLAGER_HAPPY;
+
+        vortexEffect.duration = 30 * 1000;
+
+        vortexEffect.start();
 
     }
 
     @Override
     public void execute(Player player, Object data) {
 
-        HelixEffect helixEffect = new HelixEffect(getActionManager().getEffectManager());
+        VortexEffect vortexEffect = new VortexEffect(getActionManager().getEffectManager());
 
-        helixEffect.setEntity(player);
+        vortexEffect.setEntity(player);
 
-        helixEffect.duration = 30 * 1000;
+        vortexEffect.setDynamicTarget(new DynamicLocation(player));
 
-        helixEffect.start();
+        vortexEffect.particle = Particle.VILLAGER_HAPPY;
+
+        vortexEffect.duration = 30 * 1000;
+
+        vortexEffect.start();
 
     }
 
