@@ -1,6 +1,6 @@
 package org.kayteam.actionapi.actions;
 
-import de.slikey.effectlib.effect.BleedEffect;
+import de.slikey.effectlib.effect.HelixEffect;
 import org.bukkit.entity.Player;
 import org.kayteam.actionapi.Action;
 
@@ -13,38 +13,26 @@ public class EffectAction extends Action {
     @Override
     public void execute(Player player) {
 
-        BleedEffect bleedEffect = new BleedEffect(getActionManager().getEffectManager());
+        HelixEffect helixEffect = new HelixEffect(getActionManager().getEffectManager());
 
-        bleedEffect.setTargetEntity(player);
+        helixEffect.setEntity(player);
 
-        // Add a callback to the effect
-        bleedEffect.callback = () -> {
-            player.sendMessage("You bled out..");
-            player.setHealth(0d);
-        };
-        // Bleeding takes 15 seconds
-        // period * iterations = time of effect
-        bleedEffect.iterations = 15 * 20;
-        bleedEffect.start();
+        helixEffect.duration = 30 * 1000;
+
+        helixEffect.start();
 
     }
 
     @Override
     public void execute(Player player, Object data) {
 
-        BleedEffect bleedEffect = new BleedEffect(getActionManager().getEffectManager());
+        HelixEffect helixEffect = new HelixEffect(getActionManager().getEffectManager());
 
-        bleedEffect.setTargetEntity(player);
+        helixEffect.setEntity(player);
 
-        // Add a callback to the effect
-        bleedEffect.callback = () -> {
-            player.sendMessage("You bled out..");
-            player.setHealth(0d);
-        };
-        // Bleeding takes 15 seconds
-        // period * iterations = time of effect
-        bleedEffect.iterations = 15 * 20;
-        bleedEffect.start();
+        helixEffect.duration = 30 * 1000;
+
+        helixEffect.start();
 
     }
 

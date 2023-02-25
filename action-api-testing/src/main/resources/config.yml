@@ -4,7 +4,7 @@ types:
   message: "[message] Hello, I am a message action!"
   player: "[player] say Hello, I am a player action!"
   sound: "[sound] ENTITY_PLAYER_LEVELUP"
-  effect: "[effect] "
+  effect: "[effect] Hi"
 
 messages:
   onlyPlayers: "&cOnly players can be execute this command."

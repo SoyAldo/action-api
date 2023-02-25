@@ -78,7 +78,7 @@
         <dependency>
             <groupId>com.github.SoyAldo</groupId>
             <artifactId>action-api</artifactId>
-            <version>v1.0.0</version>
+            <version>f0b5e27751</version>
         </dependency>
     </dependencies>
 </project>
