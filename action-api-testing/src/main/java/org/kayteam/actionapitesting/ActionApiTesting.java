@@ -30,6 +30,8 @@ public final class ActionApiTesting extends JavaPlugin {
 
             getConfig().load( new File( getDataFolder() + "config.yml") );
 
+            actionManager.reloadManager();
+
         } catch ( Exception ignore ) { }
 
     }
