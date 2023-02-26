@@ -27,11 +27,11 @@ public class ActionApiTestingCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        FileConfiguration config = PLUGIN.getConfig();
+        FileConfiguration settings = PLUGIN.getSettings().getFileConfiguration();
 
         if (!(sender instanceof Player)) {
 
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.onlyPlayers")));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("messages.onlyPlayers")));
 
             return true;
 
@@ -41,7 +41,7 @@ public class ActionApiTestingCommand implements CommandExecutor, TabCompleter {
 
         if (args.length < 1) {
 
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.emptyArgs")));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("messages.emptyArgs")));
 
             return true;
 
@@ -53,13 +53,13 @@ public class ActionApiTestingCommand implements CommandExecutor, TabCompleter {
 
             PLUGIN.onReload();
 
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.reloaded")));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("messages.reloaded")));
 
         } else if (subcommand.equalsIgnoreCase("test")) {
 
             if (args.length < 2) {
 
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.emptyAction")));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("messages.emptyAction")));
 
                 return true;
 
@@ -69,25 +69,25 @@ public class ActionApiTestingCommand implements CommandExecutor, TabCompleter {
 
             ActionManager actionManager = PLUGIN.getActionManager();
 
-            if (!config.contains("types." + actionType) || !actionManager.existActionExpansion(actionType)) {
+            if (!settings.contains("types." + actionType) || !actionManager.existActionExpansion(actionType)) {
 
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.invalidAction")));
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("messages.invalidAction")));
 
                 return true;
 
             }
 
-            String actionFormat = config.getString("types." + actionType);
+            String actionFormat = settings.getString("types." + actionType);
 
             Action action = actionManager.loadAction(actionFormat);
 
             action.execute(player);
 
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.executed")));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("messages.executed")));
 
         } else {
 
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.invalidArgs")));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', settings.getString("messages.invalidArgs")));
 
         }
 

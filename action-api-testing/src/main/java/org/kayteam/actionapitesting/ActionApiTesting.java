@@ -8,6 +8,8 @@ import java.io.File;
 
 public final class ActionApiTesting extends JavaPlugin {
 
+
+    private final Yaml settings = new Yaml(this, "settings");
     ActionManager actionManager = new ActionManager( this );
 
     @Override
@@ -28,7 +30,7 @@ public final class ActionApiTesting extends JavaPlugin {
 
         try {
 
-            getConfig().load( new File( getDataFolder() + "config.yml") );
+            settings.reload();
 
             actionManager.reloadManager();
 
@@ -38,14 +40,12 @@ public final class ActionApiTesting extends JavaPlugin {
 
     private void registerFiles() {
 
-        File file = new File( getDataFolder() , "config.yml" );
+        settings.register();
 
-        if ( ! file.exists() ) {
+    }
 
-            saveResource( "config.yml" , true );
-
-        }
-
+    public Yaml getSettings() {
+        return settings;
     }
 
     private void registerManagers() {

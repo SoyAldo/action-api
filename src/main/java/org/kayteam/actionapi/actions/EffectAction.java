@@ -33,10 +33,6 @@ public class EffectAction extends Action {
         Effect effect = null;
 
         switch (type) {
-            case "arc": {
-                effect = new ArcEffect(getActionManager().getEffectManager());
-                break;
-            }
             case "atom": {
                 effect = new AtomEffect(getActionManager().getEffectManager());
                 break;
@@ -49,7 +45,7 @@ public class EffectAction extends Action {
                 effect = new BleedEffect(getActionManager().getEffectManager());
                 break;
             }
-            case "clircle": {
+            case "circle": {
                 effect = new CircleEffect(getActionManager().getEffectManager());
                 break;
             }
@@ -97,10 +93,6 @@ public class EffectAction extends Action {
                 effect = new FlameEffect(getActionManager().getEffectManager());
                 break;
             }
-            case "fountain": {
-                effect = new FountainEffect(getActionManager().getEffectManager());
-                break;
-            }
             case "grid": {
                 effect = new GridEffect(getActionManager().getEffectManager());
                 break;
@@ -125,16 +117,8 @@ public class EffectAction extends Action {
                 effect = new LoveEffect(getActionManager().getEffectManager());
                 break;
             }
-            case "modified": {
-                effect = new ModifiedEffect(getActionManager().getEffectManager());
-                break;
-            }
             case "music": {
                 effect = new MusicEffect(getActionManager().getEffectManager());
-                break;
-            }
-            case "particle": {
-                effect = new ParticleEffect(getActionManager().getEffectManager());
                 break;
             }
             case "plot": {

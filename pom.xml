@@ -6,7 +6,7 @@
 
     <groupId>org.kayteam.actionapi</groupId>
     <artifactId>action-api</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <name>action-api</name>
     <description>Action API for your minecraft plugins.</description>
