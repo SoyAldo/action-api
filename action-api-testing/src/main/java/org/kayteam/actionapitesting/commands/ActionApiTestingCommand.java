@@ -1,6 +1,7 @@
 package org.kayteam.actionapitesting.commands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,24 +11,25 @@ import org.bukkit.entity.Player;
 import org.kayteam.actionapi.Action;
 import org.kayteam.actionapi.ActionManager;
 import org.kayteam.actionapitesting.ActionApiTesting;
+import org.kayteam.util.slikey.effectlib.effect.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ActionApiTestingCommand implements CommandExecutor, TabCompleter {
 
-    private final ActionApiTesting actionApiTesting;
+    private final ActionApiTesting PLUGIN;
 
-    public ActionApiTestingCommand(ActionApiTesting actionApiTesting) {
+    public ActionApiTestingCommand(ActionApiTesting PLUGIN) {
 
-        this.actionApiTesting = actionApiTesting;
+        this.PLUGIN = PLUGIN;
 
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        FileConfiguration config = actionApiTesting.getConfig();
+        FileConfiguration config = PLUGIN.getConfig();
 
         if (!(sender instanceof Player)) {
 
@@ -51,7 +53,7 @@ public class ActionApiTestingCommand implements CommandExecutor, TabCompleter {
 
         if (subcommand.equalsIgnoreCase("reload")) {
 
-            actionApiTesting.onReload();
+            PLUGIN.onReload();
 
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.reloaded")));
 
@@ -67,7 +69,20 @@ public class ActionApiTestingCommand implements CommandExecutor, TabCompleter {
 
             String actionType = args[1];
 
-            ActionManager actionManager = actionApiTesting.getActionManager();
+            if (actionType.equals("effect")) {
+
+                WarpEffect effect = new WarpEffect(PLUGIN.getActionManager().getEffectManager());
+
+                effect.setEntity(player);
+
+                effect.duration = 30 * 1000;
+
+                effect.start();
+
+                return true;
+            }
+
+            ActionManager actionManager = PLUGIN.getActionManager();
 
             if (!config.contains("types." + actionType) || !actionManager.existActionExpansion(actionType)) {
 
