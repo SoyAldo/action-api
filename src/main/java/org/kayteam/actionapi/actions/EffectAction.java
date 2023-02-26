@@ -1,6 +1,7 @@
 package org.kayteam.actionapi.actions;
 
 import de.slikey.effectlib.effect.HelixEffect;
+import de.slikey.effectlib.effect.TornadoEffect;
 import de.slikey.effectlib.effect.VortexEffect;
 import de.slikey.effectlib.util.DynamicLocation;
 import org.bukkit.Particle;
@@ -16,13 +17,9 @@ public class EffectAction extends Action {
     @Override
     public void execute(Player player) {
 
-        VortexEffect vortexEffect = new VortexEffect(getActionManager().getEffectManager());
+        TornadoEffect vortexEffect = new TornadoEffect(getActionManager().getEffectManager());
 
         vortexEffect.setEntity(player);
-
-        vortexEffect.setDynamicTarget(new DynamicLocation(player));
-
-        vortexEffect.particle = Particle.VILLAGER_HAPPY;
 
         vortexEffect.duration = 30 * 1000;
 
@@ -33,13 +30,11 @@ public class EffectAction extends Action {
     @Override
     public void execute(Player player, Object data) {
 
-        VortexEffect vortexEffect = new VortexEffect(getActionManager().getEffectManager());
+        TornadoEffect vortexEffect = new TornadoEffect(getActionManager().getEffectManager());
 
         vortexEffect.setEntity(player);
 
         vortexEffect.setDynamicTarget(new DynamicLocation(player));
-
-        vortexEffect.particle = Particle.VILLAGER_HAPPY;
 
         vortexEffect.duration = 30 * 1000;
 
