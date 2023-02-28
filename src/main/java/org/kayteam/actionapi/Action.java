@@ -12,7 +12,7 @@ public abstract class Action {
 
     public abstract void execute(Player player);
 
-    public abstract void execute(Player player, Object data);
+    public abstract void execute(Player player, String[][] replacements);
 
     @Override
     public String toString() {

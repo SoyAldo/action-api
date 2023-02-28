@@ -1,5 +1,6 @@
 package org.kayteam.actionapi.actions;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.kayteam.actionapi.Action;
@@ -13,8 +14,20 @@ public class SoundAction extends Action {
 
     @Override
     public void execute(Player player) {
+        execute(player, new String[][]{});
+    }
+
+    @Override
+    public void execute(Player player, String[][] replacements) {
         try {
             String realValue = getValue();
+
+            for (String[] replacement : replacements) {
+                try {
+                    realValue = StringUtils.replace(realValue, replacement[0], replacement[1]);
+                } catch (Exception ignored) {
+                }
+            }
 
             realValue = PlaceholderAPIUtil.setPlaceholders(player, realValue);
 
@@ -36,12 +49,6 @@ public class SoundAction extends Action {
 
         } catch (IllegalArgumentException ignore) {
         }
-
-    }
-
-    @Override
-    public void execute(Player player, Object data) {
-        execute(player);
     }
 
 }

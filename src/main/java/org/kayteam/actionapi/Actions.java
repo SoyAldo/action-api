@@ -32,8 +32,8 @@ public class Actions {
         actions.values().forEach(action -> action.execute(player));
     }
 
-    public void executeAll(Player player, Object data) {
-        actions.values().forEach(action -> action.execute(player, data));
+    public void executeAll(Player player, String[][] replacements) {
+        actions.values().forEach(action -> action.execute(player, replacements));
     }
 
     public List<String> serialize() {

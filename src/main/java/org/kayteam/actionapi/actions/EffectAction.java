@@ -2,8 +2,10 @@ package org.kayteam.actionapi.actions;
 
 import de.slikey.effectlib.Effect;
 import de.slikey.effectlib.effect.*;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.kayteam.actionapi.Action;
+import org.kayteam.actionapi.util.PlaceholderAPIUtil;
 
 public class EffectAction extends Action {
 
@@ -13,7 +15,11 @@ public class EffectAction extends Action {
 
     @Override
     public void execute(Player player) {
+        execute(player, new String[][]{});
+    }
 
+    @Override
+    public void execute(Player player, String[][] replacements) {
         if (getValue().isEmpty()) {
             return;
         }
@@ -23,8 +29,22 @@ public class EffectAction extends Action {
 
         if (getValue().contains(" ")) {
             type = getValue().split(" ")[0];
+            String durationString = getValue().split(" ")[1];
             try {
-                duration = Integer.parseInt(getValue().split(" ")[1]);
+                // Apply the replacements
+                for (String[] replacement : replacements) {
+                    try {
+                        type = StringUtils.replace(type, replacement[0], replacement[1]);
+                        durationString = StringUtils.replace(durationString, replacement[0], replacement[1]);
+                    } catch (Exception ignored) {
+                    }
+                }
+
+                // Apply the variables from PlaceholderAPI.
+                type = PlaceholderAPIUtil.setPlaceholders(player, type);
+                durationString = PlaceholderAPIUtil.setPlaceholders(player, durationString);
+
+                duration = Integer.parseInt(durationString);
             } catch (NumberFormatException ignored) {
             }
         }
@@ -185,14 +205,6 @@ public class EffectAction extends Action {
             effect.start();
 
         }
-
-    }
-
-    @Override
-    public void execute(Player player, Object data) {
-
-        execute(player);
-
     }
 
 }
