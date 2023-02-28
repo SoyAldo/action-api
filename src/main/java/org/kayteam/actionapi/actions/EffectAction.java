@@ -25,8 +25,7 @@ public class EffectAction extends Action {
             type = getValue().split(" ")[0];
             try {
                 duration = Integer.parseInt(getValue().split(" ")[1]);
-            } catch (NumberFormatException e) {
-                duration = 1;
+            } catch (NumberFormatException ignored) {
             }
         }
 

@@ -17,16 +17,16 @@ public class PlayerAction extends Action {
 
     @Override
     public void execute( Player player ) {
-        String realValue = getValue();
+        String command = getValue();
 
-        realValue = PlaceholderAPIUtil.setPlaceholders( player , realValue );
-        realValue = ChatColor.translateAlternateColorCodes( '&' , realValue );
+        command = PlaceholderAPIUtil.setPlaceholders( player , command );
+        command = ChatColor.translateAlternateColorCodes( '&' , command );
 
         ActionManager actionManager = getActionManager();
         JavaPlugin javaPlugin = actionManager.getJavaPlugin();
         Server server = javaPlugin.getServer();
 
-        server.dispatchCommand( player , realValue );
+        server.dispatchCommand( player , command );
     }
 
     @Override

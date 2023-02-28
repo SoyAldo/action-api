@@ -7,40 +7,41 @@ import org.kayteam.actionapi.util.PlaceholderAPIUtil;
 
 public class SoundAction extends Action {
 
-    public SoundAction(String value ) {
-        super( "sound" , value );
+    public SoundAction(String value) {
+        super("sound", value);
     }
 
     @Override
-    public void execute( Player player ) {
+    public void execute(Player player) {
         try {
             String realValue = getValue();
 
-            realValue = PlaceholderAPIUtil.setPlaceholders( player , realValue );
+            realValue = PlaceholderAPIUtil.setPlaceholders(player, realValue);
 
             Sound sound;
-            float volume = 1 , pitch = 1;
+            float volume = 1, pitch = 1;
 
-            if ( realValue.contains( " " ) ) {
-                String[] realValues = realValue.split( " " );
+            if (realValue.contains(" ")) {
+                String[] realValues = realValue.split(" ");
 
-                sound = Sound.valueOf( realValues[0] );
+                sound = Sound.valueOf(realValues[0]);
 
-                if ( realValues.length >= 2 ) volume = Float.parseFloat( realValues[1] );
-                if ( realValues.length >= 3 )  pitch = Float.parseFloat( realValues[2] );
+                if (realValues.length >= 2) volume = Float.parseFloat(realValues[1]);
+                if (realValues.length >= 3) pitch = Float.parseFloat(realValues[2]);
             } else {
-                sound = Sound.valueOf( realValue );
+                sound = Sound.valueOf(realValue);
             }
 
-            player.playSound( player.getLocation() , sound , volume , pitch);
+            player.playSound(player.getLocation(), sound, volume, pitch);
 
-        } catch ( IllegalArgumentException ignore ) {}
+        } catch (IllegalArgumentException ignore) {
+        }
 
     }
 
     @Override
-    public void execute( Player player , Object data ) {
-        execute( player );
+    public void execute(Player player, Object data) {
+        execute(player);
     }
 
 }

@@ -25,27 +25,18 @@ public class ActionManager {
         effectManager = new EffectManager(javaPlugin);
 
         addActionExpansion(new ActionBarExpansion());
+        addActionExpansion(new BroadcastExpansion());
         addActionExpansion(new ConsoleExpansion());
+        addActionExpansion(new EffectExpansion());
         addActionExpansion(new MessageExpansion());
         addActionExpansion(new PlayerExpansion());
         addActionExpansion(new SoundExpansion());
-        addActionExpansion(new EffectExpansion());
+        addActionExpansion(new TitleExpansion());
 
     }
 
     public void reloadManager() {
-        if (VaultUtil.isEconomyEnabled()) economy = VaultUtil.getEconomy();
 
-        effectManager = new EffectManager(javaPlugin);
-
-        actionExpansions.clear();
-
-        addActionExpansion(new ActionBarExpansion());
-        addActionExpansion(new ConsoleExpansion());
-        addActionExpansion(new MessageExpansion());
-        addActionExpansion(new PlayerExpansion());
-        addActionExpansion(new SoundExpansion());
-        addActionExpansion(new EffectExpansion());
     }
 
 

@@ -11,16 +11,16 @@ import org.kayteam.actionapi.util.PlaceholderAPIUtil;
 
 public class ConsoleAction extends Action {
 
-    public ConsoleAction( String value ) {
-        super( "console" , value );
+    public ConsoleAction(String value) {
+        super("console", value);
     }
 
     @Override
-    public void execute( Player player ) {
-        String realValue = getValue();
+    public void execute(Player player) {
+        String command = getValue();
 
-        realValue = PlaceholderAPIUtil.setPlaceholders( player , realValue );
-        realValue = ChatColor.translateAlternateColorCodes( '&' , realValue );
+        command = PlaceholderAPIUtil.setPlaceholders(player, command);
+        command = ChatColor.translateAlternateColorCodes('&', command);
 
         ActionManager actionManager = getActionManager();
 
@@ -28,12 +28,12 @@ public class ConsoleAction extends Action {
         Server server = javaPlugin.getServer();
         ConsoleCommandSender consoleCommandSender = server.getConsoleSender();
 
-        server.dispatchCommand( consoleCommandSender , realValue );
+        server.dispatchCommand(consoleCommandSender, command);
     }
 
     @Override
-    public void execute( Player player , Object data ) {
-        execute( player );
+    public void execute(Player player, Object data) {
+        execute(player);
     }
 
 }

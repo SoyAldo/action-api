@@ -5,10 +5,10 @@ import org.bukkit.entity.Player;
 import org.kayteam.actionapi.Action;
 import org.kayteam.actionapi.util.PlaceholderAPIUtil;
 
-public class MessageAction extends Action {
+public class BroadcastAction extends Action {
 
-    public MessageAction(String value) {
-        super("message", value);
+    public BroadcastAction(String value) {
+        super("broadcast", value);
     }
 
     @Override
@@ -22,8 +22,8 @@ public class MessageAction extends Action {
         // Apply color.
         message = ChatColor.translateAlternateColorCodes('&', message);
 
-        // Send the message to the player.
-        player.sendMessage(message);
+        // Send the message to the entire server.
+        getActionManager().getJavaPlugin().getServer().broadcastMessage(message);
     }
 
     @Override

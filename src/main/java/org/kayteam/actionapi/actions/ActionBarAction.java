@@ -9,23 +9,28 @@ import org.kayteam.actionapi.util.PlaceholderAPIUtil;
 
 public class ActionBarAction extends Action {
 
-    public ActionBarAction(String value ) {
-        super( "actionbar" , value );
+    public ActionBarAction(String value) {
+        super("actionbar", value);
     }
 
     @Override
-    public void execute( Player player ) {
-        String realValue = getValue();
+    public void execute(Player player) {
+        // Created a variable that will be the message.
+        String message = getValue();
 
-        realValue = PlaceholderAPIUtil.setPlaceholders( player , realValue );
-        realValue = ChatColor.translateAlternateColorCodes( '&' , realValue );
+        // Apply the variables from PlaceholderAPI.
+        message = PlaceholderAPIUtil.setPlaceholders(player, message);
 
-        player.spigot().sendMessage( ChatMessageType.ACTION_BAR , TextComponent.fromLegacyText( realValue ) );
+        // Apply color.
+        message = ChatColor.translateAlternateColorCodes('&', message);
+
+        // Send the message to the player.
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
     }
 
     @Override
-    public void execute( Player player , Object data ) {
-        execute( player );
+    public void execute(Player player, Object data) {
+        execute(player);
     }
 
 }
