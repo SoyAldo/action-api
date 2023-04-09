@@ -16,20 +16,10 @@ Actions API based on DeluxeMenus and its ease of manipulation during plugin conf
     <groupId>com.github.SoyAldo</groupId>
     <artifactId>action-api</artifactId>
     <version>VERSION</version>
+    <scope>provided</scope>
 </dependency>
 ```
-## Gradle
-```groovy
-repositories {
-    maven {url'https://jitpack.io' }
-}
-```
 
-```groovy
-dependencies {
-    implementation 'com.github.SoyAldo:action-api:VERSION'
-}
-```
 Check the last released version in Releases section
 
 ## TODO
