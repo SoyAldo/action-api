@@ -1,4 +1,4 @@
-package org.kayteam.actionapi.util;
+package com.soyaldo.actionapi.util;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;

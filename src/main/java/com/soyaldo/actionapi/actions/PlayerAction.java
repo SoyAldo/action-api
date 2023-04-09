@@ -1,13 +1,13 @@
-package org.kayteam.actionapi.actions;
+package com.soyaldo.actionapi.actions;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.kayteam.actionapi.Action;
-import org.kayteam.actionapi.ActionManager;
-import org.kayteam.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.Action;
+import com.soyaldo.actionapi.ActionManager;
+import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
 public class PlayerAction extends Action {
 

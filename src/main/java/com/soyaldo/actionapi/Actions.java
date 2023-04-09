@@ -1,13 +1,11 @@
-package org.kayteam.actionapi;
+package com.soyaldo.actionapi;
 
-import lombok.Data;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-@Data
 public class Actions {
 
     private final LinkedHashMap<String, Action> actions = new LinkedHashMap<>();

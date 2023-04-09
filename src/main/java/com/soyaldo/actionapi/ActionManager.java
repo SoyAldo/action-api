@@ -1,33 +1,40 @@
-package org.kayteam.actionapi;
+package com.soyaldo.actionapi;
 
-import de.slikey.effectlib.EffectManager;
-import lombok.Data;
+import com.soyaldo.actionapi.expansions.*;
+import com.soyaldo.actionapi.util.ActionUtil;
+import com.soyaldo.actionapi.util.VaultUtil;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.kayteam.actionapi.expansions.*;
-import org.kayteam.actionapi.util.ActionUtil;
-import org.kayteam.actionapi.util.VaultUtil;
 
 import java.util.HashMap;
 import java.util.List;
 
-@Data
 public class ActionManager {
 
     private final JavaPlugin javaPlugin;
     private Economy economy = null;
-    private EffectManager effectManager;
     private final HashMap<String, ActionExpansion> actionExpansions = new HashMap<>();
 
-    public void registerManager() {
-        if (VaultUtil.isEconomyEnabled()) economy = VaultUtil.getEconomy();
+    public ActionManager(JavaPlugin javaPlugin) {
+        this.javaPlugin = javaPlugin;
+    }
 
-        effectManager = new EffectManager(javaPlugin);
+    public JavaPlugin getJavaPlugin() {
+        return javaPlugin;
+    }
+
+    public Economy getEconomy() {
+        return economy;
+    }
+
+    public void registerManager() {
+        if (VaultUtil.isEconomyEnabled()) {
+            economy = VaultUtil.getEconomy();
+        }
 
         addActionExpansion(new ActionBarExpansion());
         addActionExpansion(new BroadcastExpansion());
         addActionExpansion(new ConsoleExpansion());
-        addActionExpansion(new EffectExpansion());
         addActionExpansion(new MessageExpansion());
         addActionExpansion(new PlayerExpansion());
         addActionExpansion(new SoundExpansion());
@@ -38,7 +45,6 @@ public class ActionManager {
     public void reloadManager() {
 
     }
-
 
     public boolean existActionExpansion(String type) {
         return actionExpansions.containsKey(type);

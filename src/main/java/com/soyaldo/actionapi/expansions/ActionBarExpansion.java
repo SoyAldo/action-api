@@ -1,9 +1,9 @@
-package org.kayteam.actionapi.expansions;
+package com.soyaldo.actionapi.expansions;
 
-import org.kayteam.actionapi.Action;
-import org.kayteam.actionapi.ActionExpansion;
-import org.kayteam.actionapi.actions.ActionBarAction;
-import org.kayteam.actionapi.util.ActionUtil;
+import com.soyaldo.actionapi.actions.ActionBarAction;
+import com.soyaldo.actionapi.util.ActionUtil;
+import com.soyaldo.actionapi.Action;
+import com.soyaldo.actionapi.ActionExpansion;
 
 public class ActionBarExpansion extends ActionExpansion {
 

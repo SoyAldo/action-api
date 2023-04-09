@@ -1,10 +1,10 @@
-package org.kayteam.actionapi.actions;
+package com.soyaldo.actionapi.actions;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.kayteam.actionapi.Action;
-import org.kayteam.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.Action;
+import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
 public class SoundAction extends Action {
 

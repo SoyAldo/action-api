@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.kayteam.actionapi</groupId>
+    <groupId>com.soyaldo</groupId>
     <artifactId>action-api</artifactId>
-    <version>1.2.0</version>
 
     <name>action-api</name>
+    <version>1.6.0</version>
     <description>Action API for your minecraft plugins.</description>
-    <url>https://kayteam.org</url>
+    <url>https://soyaldo.com/project/action-api</url>
 
     <properties>
         <java.version>1.8</java.version>
@@ -28,39 +28,6 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <minimizeJar>false</minimizeJar>
-                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-                    <relocations>
-                        <!-- Other relocations can go here, e.g. bstats -->
-                        <relocation>
-                            <pattern>de.slikey</pattern>
-                            <shadedPattern>org.kayteam.util.slikey</shadedPattern>
-                        </relocation>
-                    </relocations>
-                    <filters>
-                        <filter>
-                            <artifact>com.elmakers.mine.bukkit:EffectLib</artifact>
-                            <excludes>
-                                <exclude>plugin.yml</exclude>
-                                <exclude>META-INF/MANIFEST.MF</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -68,10 +35,6 @@
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
             <id>jitpack.io</id>
@@ -84,12 +47,6 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -107,12 +64,6 @@
             <artifactId>placeholderapi</artifactId>
             <version>2.11.2</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.elmakers.mine.bukkit</groupId>
-            <artifactId>EffectLib</artifactId>
-            <version>9.4</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

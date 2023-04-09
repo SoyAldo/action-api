@@ -1,4 +1,4 @@
-package org.kayteam.actionapi.util;
+package com.soyaldo.actionapi.util;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;

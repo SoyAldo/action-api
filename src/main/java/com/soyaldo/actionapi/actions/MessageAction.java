@@ -1,15 +1,15 @@
-package org.kayteam.actionapi.actions;
+package com.soyaldo.actionapi.actions;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.kayteam.actionapi.Action;
-import org.kayteam.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.Action;
+import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
-public class BroadcastAction extends Action {
+public class MessageAction extends Action {
 
-    public BroadcastAction(String value) {
-        super("broadcast", value);
+    public MessageAction(String value) {
+        super("message", value);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class BroadcastAction extends Action {
         // Created a variable that will be the message.
         String message = getValue();
 
-        // Replacements
+        // Apply the replacements
         for (String[] replacement : replacements) {
             try {
                 message = StringUtils.replace(message, replacement[0], replacement[1]);
@@ -36,8 +36,8 @@ public class BroadcastAction extends Action {
         // Apply color.
         message = ChatColor.translateAlternateColorCodes('&', message);
 
-        // Send the message to the entire server.
-        getActionManager().getJavaPlugin().getServer().broadcastMessage(message);
+        // Send the message to the player.
+        player.sendMessage(message);
     }
 
 }

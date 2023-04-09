@@ -1,12 +1,12 @@
-package org.kayteam.actionapi.actions;
+package com.soyaldo.actionapi.actions;
 
+import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.kayteam.actionapi.Action;
-import org.kayteam.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.Action;
 
 public class ActionBarAction extends Action {
 
