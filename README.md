@@ -23,7 +23,7 @@ Actions API based on DeluxeMenus and its ease of manipulation during plugin conf
 Check the last released version in Releases section
 
 ## TODO
-✘ `?`.
+✘ Timed actions.
 
 ## How to use
 https://github.com/SoyAldo/action-api/wiki
