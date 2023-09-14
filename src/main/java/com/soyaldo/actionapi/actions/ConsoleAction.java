@@ -1,19 +1,18 @@
 package com.soyaldo.actionapi.actions;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.ChatColor;
+import com.soyaldo.actionapi.util.ChatColorUtil;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.ActionManager;
+import com.soyaldo.actionapi.managers.ActionManager;
 import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
 public class ConsoleAction extends Action {
 
-    public ConsoleAction(String value) {
-        super("console", value);
+    public ConsoleAction(ActionManager actionManager, String value) {
+        super(actionManager, "console", value);
     }
 
     @Override
@@ -27,17 +26,14 @@ public class ConsoleAction extends Action {
 
         // Replacements
         for (String[] replacement : replacements) {
-            try {
-                command = StringUtils.replace(command, replacement[0], replacement[1]);
-            } catch (Exception ignored) {
-            }
+            command = command.replace(replacement[0], replacement[1]);
         }
 
         // PlaceholderAPI
         command = PlaceholderAPIUtil.setPlaceholders(player, command);
 
         // Color
-        command = ChatColor.translateAlternateColorCodes('&', command);
+        command = ChatColorUtil.translate(command);
 
         // ActionManager
         ActionManager actionManager = getActionManager();

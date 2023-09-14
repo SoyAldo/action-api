@@ -1,15 +1,15 @@
 package com.soyaldo.actionapi.actions;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.ChatColor;
+import com.soyaldo.actionapi.managers.ActionManager;
+import com.soyaldo.actionapi.util.ChatColorUtil;
 import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
 import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
 public class TitleAction extends Action {
 
-    public TitleAction(String value) {
-        super("title", value);
+    public TitleAction(ActionManager actionManager, String value) {
+        super(actionManager, "title", value);
     }
 
     @Override
@@ -30,17 +30,14 @@ public class TitleAction extends Action {
 
             // Replacements
             for (String[] replacement : replacements) {
-                try {
-                    title = StringUtils.replace(title, replacement[0], replacement[1]);
-                } catch (Exception ignored) {
-                }
+                title = title.replace(replacement[0], replacement[1]);
             }
 
             // PlaceholderAPI
             title = PlaceholderAPIUtil.setPlaceholders(player, title);
 
             // Color
-            title = ChatColor.translateAlternateColorCodes('&', title);
+            title = ChatColorUtil.translate(title);
 
             player.sendTitle(title, subTitle, 10, 70, 20);
             return;
@@ -53,11 +50,8 @@ public class TitleAction extends Action {
 
         // Replacements
         for (String[] replacement : replacements) {
-            try {
-                title = StringUtils.replace(title, replacement[0], replacement[1]);
-                subTitle = StringUtils.replace(subTitle, replacement[0], replacement[1]);
-            } catch (Exception ignored) {
-            }
+            title = title.replace(replacement[0], replacement[1]);
+            subTitle = title.replace(replacement[0], replacement[1]);
         }
 
         // PlaceholderAPI
@@ -65,8 +59,8 @@ public class TitleAction extends Action {
         subTitle = PlaceholderAPIUtil.setPlaceholders(player, subTitle);
 
         // Color
-        title = ChatColor.translateAlternateColorCodes('&', title);
-        subTitle = ChatColor.translateAlternateColorCodes('&', subTitle);
+        title = ChatColorUtil.translate(title);
+        subTitle = ChatColorUtil.translate(subTitle);
 
         int fadeIn = 10;
         int stay = 70;

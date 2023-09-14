@@ -1,5 +1,8 @@
-package com.soyaldo.actionapi;
+package com.soyaldo.actionapi.managers;
 
+import com.soyaldo.actionapi.Action;
+import com.soyaldo.actionapi.ActionExpansion;
+import com.soyaldo.actionapi.Actions;
 import com.soyaldo.actionapi.expansions.*;
 import com.soyaldo.actionapi.util.ActionUtil;
 import com.soyaldo.actionapi.util.VaultUtil;
@@ -32,13 +35,13 @@ public class ActionManager {
             economy = VaultUtil.getEconomy();
         }
 
-        addActionExpansion(new ActionBarExpansion());
-        addActionExpansion(new BroadcastExpansion());
-        addActionExpansion(new ConsoleExpansion());
-        addActionExpansion(new MessageExpansion());
-        addActionExpansion(new PlayerExpansion());
-        addActionExpansion(new SoundExpansion());
-        addActionExpansion(new TitleExpansion());
+        addActionExpansion(new ActionBarExpansion(this));
+        addActionExpansion(new BroadcastExpansion(this));
+        addActionExpansion(new ConsoleExpansion(this));
+        addActionExpansion(new MessageExpansion(this));
+        addActionExpansion(new PlayerExpansion(this));
+        addActionExpansion(new SoundExpansion(this));
+        addActionExpansion(new TitleExpansion(this));
 
     }
 
@@ -71,24 +74,8 @@ public class ActionManager {
 
         // If the ActionExpansion is not null.
         if (actionExpansion != null) {
-
-            // Create a new Action by generating it with the ActionExpansion.
-            Action action = actionExpansion.generateAction(format);
-
-            // If the generated Action is not null.
-            if (action != null) {
-
-                // Set the format to Action.
-                action.setFormat(format);
-
-                // Set the ActionManager to the Action.
-                action.setActionManager(this);
-
-                // Return the Action.
-                return action;
-
-            }
-
+            // Return the Action.
+            return actionExpansion.generateAction(format);
         }
 
         // Return null.

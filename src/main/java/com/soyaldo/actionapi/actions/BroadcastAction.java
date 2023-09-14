@@ -1,15 +1,15 @@
 package com.soyaldo.actionapi.actions;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.ChatColor;
+import com.soyaldo.actionapi.managers.ActionManager;
+import com.soyaldo.actionapi.util.ChatColorUtil;
 import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
 import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
 public class BroadcastAction extends Action {
 
-    public BroadcastAction(String value) {
-        super("broadcast", value);
+    public BroadcastAction(ActionManager actionManager, String value) {
+        super(actionManager, "broadcast", value);
     }
 
     @Override
@@ -24,17 +24,14 @@ public class BroadcastAction extends Action {
 
         // Replacements
         for (String[] replacement : replacements) {
-            try {
-                message = StringUtils.replace(message, replacement[0], replacement[1]);
-            } catch (Exception ignored) {
-            }
+            message = message.replace(replacement[0], replacement[1]);
         }
 
         // Apply the variables from PlaceholderAPI.
         message = PlaceholderAPIUtil.setPlaceholders(player, message);
 
         // Apply color.
-        message = ChatColor.translateAlternateColorCodes('&', message);
+        message = ChatColorUtil.translate(message);
 
         // Send the message to the entire server.
         getActionManager().getJavaPlugin().getServer().broadcastMessage(message);

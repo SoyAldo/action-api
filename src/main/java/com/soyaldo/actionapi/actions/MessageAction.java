@@ -1,15 +1,15 @@
 package com.soyaldo.actionapi.actions;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.ChatColor;
+import com.soyaldo.actionapi.managers.ActionManager;
+import com.soyaldo.actionapi.util.ChatColorUtil;
 import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
 import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
 public class MessageAction extends Action {
 
-    public MessageAction(String value) {
-        super("message", value);
+    public MessageAction(ActionManager actionManager, String value) {
+        super(actionManager, "message", value);
     }
 
     @Override
@@ -24,17 +24,14 @@ public class MessageAction extends Action {
 
         // Apply the replacements
         for (String[] replacement : replacements) {
-            try {
-                message = StringUtils.replace(message, replacement[0], replacement[1]);
-            } catch (Exception ignored) {
-            }
+            message = message.replace(replacement[0], replacement[1]);
         }
 
         // Apply the variables from PlaceholderAPI.
         message = PlaceholderAPIUtil.setPlaceholders(player, message);
 
         // Apply color.
-        message = ChatColor.translateAlternateColorCodes('&', message);
+        message = ChatColorUtil.translate(message);
 
         // Send the message to the player.
         player.sendMessage(message);

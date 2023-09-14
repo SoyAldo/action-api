@@ -1,6 +1,6 @@
 package com.soyaldo.actionapi.actions;
 
-import org.apache.commons.lang.StringUtils;
+import com.soyaldo.actionapi.managers.ActionManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
@@ -8,8 +8,8 @@ import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
 
 public class SoundAction extends Action {
 
-    public SoundAction(String value) {
-        super("sound", value);
+    public SoundAction(ActionManager actionManager, String value) {
+        super(actionManager, "sound", value);
     }
 
     @Override
@@ -23,10 +23,7 @@ public class SoundAction extends Action {
             String realValue = getValue();
 
             for (String[] replacement : replacements) {
-                try {
-                    realValue = StringUtils.replace(realValue, replacement[0], replacement[1]);
-                } catch (Exception ignored) {
-                }
+                realValue = realValue.replace(replacement[0], replacement[1]);
             }
 
             realValue = PlaceholderAPIUtil.setPlaceholders(player, realValue);

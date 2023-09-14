@@ -15,7 +15,7 @@ Actions API based on DeluxeMenus and its ease of manipulation during plugin conf
 <dependency>
     <groupId>com.github.SoyAldo</groupId>
     <artifactId>action-api</artifactId>
-    <version>VERSION</version>
+    <version>1.7.0</version>
     <scope>provided</scope>
 </dependency>
 ```
