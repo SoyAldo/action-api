@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.soyaldo.actionapi.Action;
 import com.soyaldo.actionapi.managers.ActionManager;
-import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.util.PlaceholderApi;
 
 public class ConsoleAction extends Action {
 
@@ -30,7 +30,7 @@ public class ConsoleAction extends Action {
         }
 
         // PlaceholderAPI
-        command = PlaceholderAPIUtil.setPlaceholders(player, command);
+        command = PlaceholderApi.setPlaceholders(player, command);
 
         // Color
         command = ChatColorUtil.translate(command);

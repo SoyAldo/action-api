@@ -4,7 +4,7 @@ import com.soyaldo.actionapi.managers.ActionManager;
 import com.soyaldo.actionapi.util.ChatColorUtil;
 import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.util.PlaceholderApi;
 
 public class TitleAction extends Action {
 
@@ -34,7 +34,7 @@ public class TitleAction extends Action {
             }
 
             // PlaceholderAPI
-            title = PlaceholderAPIUtil.setPlaceholders(player, title);
+            title = PlaceholderApi.setPlaceholders(player, title);
 
             // Color
             title = ChatColorUtil.translate(title);
@@ -55,8 +55,8 @@ public class TitleAction extends Action {
         }
 
         // PlaceholderAPI
-        title = PlaceholderAPIUtil.setPlaceholders(player, title);
-        subTitle = PlaceholderAPIUtil.setPlaceholders(player, subTitle);
+        title = PlaceholderApi.setPlaceholders(player, title);
+        subTitle = PlaceholderApi.setPlaceholders(player, subTitle);
 
         // Color
         title = ChatColorUtil.translate(title);

@@ -4,7 +4,7 @@ import com.soyaldo.actionapi.managers.ActionManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.util.PlaceholderApi;
 
 public class SoundAction extends Action {
 
@@ -26,7 +26,7 @@ public class SoundAction extends Action {
                 realValue = realValue.replace(replacement[0], replacement[1]);
             }
 
-            realValue = PlaceholderAPIUtil.setPlaceholders(player, realValue);
+            realValue = PlaceholderApi.setPlaceholders(player, realValue);
 
             Sound sound;
             float volume = 1, pitch = 1;

@@ -1,0 +1,7 @@
+onlyPlayers: "&cOnly players can be execute this command."
+emptyArgs: "&cThe sub command is empty."
+invalidArgs: "&cThe sub command is invalid."
+reloaded: "&aReloaded."
+emptyAction: "&cThe action type is empty."
+invalidAction: "&cThe action type &f%type% &cis invalid or not exist."
+executed: "&aThe action has been executed."

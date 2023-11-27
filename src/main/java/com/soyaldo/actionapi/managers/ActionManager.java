@@ -6,6 +6,7 @@ import com.soyaldo.actionapi.Actions;
 import com.soyaldo.actionapi.expansions.*;
 import com.soyaldo.actionapi.util.ActionUtil;
 import com.soyaldo.actionapi.util.VaultUtil;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,13 +18,19 @@ public class ActionManager {
     private final JavaPlugin javaPlugin;
     private Economy economy = null;
     private final HashMap<String, ActionExpansion> actionExpansions = new HashMap<>();
+    private final BukkitAudiences bukkitAudiences;
 
     public ActionManager(JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
+        bukkitAudiences = BukkitAudiences.create(javaPlugin);
     }
 
     public JavaPlugin getJavaPlugin() {
         return javaPlugin;
+    }
+
+    public BukkitAudiences getBukkitAudiences() {
+        return bukkitAudiences;
     }
 
     public Economy getEconomy() {

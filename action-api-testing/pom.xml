@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.kayteam</groupId>
+    <groupId>com.soyaldo</groupId>
     <artifactId>action-api-testing</artifactId>
-    <version>1.0.0</version>
+    <version>1.7.0</version>
     <packaging>jar</packaging>
 
     <name>action-api-testing</name>
@@ -66,19 +66,29 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13-R0.1-SNAPSHOT</version>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.SoyAldo</groupId>
             <artifactId>action-api</artifactId>
-            <version>f421cddcdd</version>
+            <version>9a1f0e635d</version>
         </dependency>
     </dependencies>
 </project>

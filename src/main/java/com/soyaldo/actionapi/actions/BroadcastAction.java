@@ -1,10 +1,12 @@
 package com.soyaldo.actionapi.actions;
 
-import com.soyaldo.actionapi.managers.ActionManager;
-import com.soyaldo.actionapi.util.ChatColorUtil;
-import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.util.PlaceholderAPIUtil;
+import com.soyaldo.actionapi.managers.ActionManager;
+import com.soyaldo.actionapi.util.PlaceholderApi;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.entity.Player;
 
 public class BroadcastAction extends Action {
 
@@ -28,13 +30,12 @@ public class BroadcastAction extends Action {
         }
 
         // Apply the variables from PlaceholderAPI.
-        message = PlaceholderAPIUtil.setPlaceholders(player, message);
-
-        // Apply color.
-        message = ChatColorUtil.translate(message);
+        message = PlaceholderApi.setPlaceholders(player, message);
 
         // Send the message to the entire server.
-        getActionManager().getJavaPlugin().getServer().broadcastMessage(message);
+        Audience audience = getActionManager().getBukkitAudiences().all();
+        Component component = MiniMessage.miniMessage().deserialize(message);
+        audience.sendMessage(component);
     }
 
 }

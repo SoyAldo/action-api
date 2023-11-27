@@ -1,13 +1,12 @@
-package org.kayteam.actionapitesting;
+package com.soyaldo.actionapitesting.utils;
 
+import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.logging.Level;
 
 public class Yaml {
@@ -16,24 +15,49 @@ public class Yaml {
     private final String directory;
     private final String name;
     private FileConfiguration fileConfiguration;
+    private final InputStream defaultConfiguration;
 
+
+    public Yaml(JavaPlugin javaPlugin, String directory, String name, InputStream defaultConfiguration) {
+        this.javaPlugin = javaPlugin;
+        this.directory = javaPlugin.getDataFolder().getPath() + File.separator + directory;
+        this.name = name;
+        this.defaultConfiguration = defaultConfiguration;
+    }
 
     public Yaml(JavaPlugin javaPlugin, String directory, String name) {
         this.javaPlugin = javaPlugin;
         this.directory = javaPlugin.getDataFolder().getPath() + File.separator + directory;
         this.name = name;
+        defaultConfiguration = null;
+    }
+
+    public Yaml(JavaPlugin javaPlugin, String name, InputStream defaultConfiguration) {
+        this.javaPlugin = javaPlugin;
+        this.directory = javaPlugin.getDataFolder().getPath();
+        this.name = name;
+        this.defaultConfiguration = defaultConfiguration;
     }
 
     public Yaml(JavaPlugin javaPlugin, String name) {
         this.javaPlugin = javaPlugin;
         this.directory = javaPlugin.getDataFolder().getPath();
         this.name = name;
+        defaultConfiguration = null;
+    }
+
+    public Yaml(String directory, String name, InputStream defaultConfiguration) {
+        this.javaPlugin = null;
+        this.directory = directory;
+        this.name = name;
+        this.defaultConfiguration = defaultConfiguration;
     }
 
     public Yaml(String directory, String name) {
         this.javaPlugin = null;
         this.directory = directory;
         this.name = name;
+        defaultConfiguration = null;
     }
 
 
@@ -60,18 +84,9 @@ public class Yaml {
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
-                    if (javaPlugin != null) {
-                        String localDirectory = "";
-                        if (!this.directory.equals(javaPlugin.getDataFolder().getPath())) {
-                            localDirectory = this.directory.replaceAll(javaPlugin.getDataFolder().getPath(), "");
-                            localDirectory = localDirectory.replaceAll(File.separator, "/");
-                            localDirectory = localDirectory.replaceFirst("/", "");
-                            localDirectory = localDirectory + "/";
-                        }
-                        InputStream inputStream = javaPlugin.getResource(localDirectory + name + ".yml");
-                        if (inputStream != null) {
-                            javaPlugin.saveResource(localDirectory + name + ".yml", true);
-                        }
+                    if (defaultConfiguration != null) {
+                        OutputStream outputStream = new FileOutputStream(file);
+                        ByteStreams.copy(defaultConfiguration, outputStream);
                     }
                 }
             } catch (IOException | IllegalArgumentException e) {
