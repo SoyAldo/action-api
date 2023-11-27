@@ -1,9 +1,7 @@
 package com.soyaldo.actionapi.actions;
 
 import com.soyaldo.actionapi.managers.ActionManager;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import de.themoep.minedown.MineDown;
 import org.bukkit.entity.Player;
 import com.soyaldo.actionapi.Action;
 import com.soyaldo.actionapi.util.PlaceholderApi;
@@ -33,9 +31,7 @@ public class MessageAction extends Action {
         message = PlaceholderApi.setPlaceholders(player, message);
 
         // Send the message to the player.
-        Audience audience = getActionManager().getBukkitAudiences().player(player);
-        Component component = MiniMessage.miniMessage().deserialize(message);
-        audience.sendMessage(component);
+        player.spigot().sendMessage(MineDown.parse(message));
     }
 
 }

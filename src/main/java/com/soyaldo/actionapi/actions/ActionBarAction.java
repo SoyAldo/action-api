@@ -1,12 +1,11 @@
 package com.soyaldo.actionapi.actions;
 
+import com.soyaldo.actionapi.Action;
 import com.soyaldo.actionapi.managers.ActionManager;
 import com.soyaldo.actionapi.util.PlaceholderApi;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import de.themoep.minedown.MineDown;
+import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.entity.Player;
-import com.soyaldo.actionapi.Action;
 
 public class ActionBarAction extends Action {
 
@@ -28,9 +27,7 @@ public class ActionBarAction extends Action {
         // Apply the variables from PlaceholderAPI.
         message = PlaceholderApi.setPlaceholders(player, message);
         // Send the message to the player.
-        Audience audience = getActionManager().getBukkitAudiences().player(player);
-        Component component = MiniMessage.miniMessage().deserialize(message);
-        audience.sendActionBar(component);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, MineDown.parse(message));
     }
 
 }
