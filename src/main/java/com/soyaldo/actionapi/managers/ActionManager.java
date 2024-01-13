@@ -1,12 +1,10 @@
 package com.soyaldo.actionapi.managers;
 
-import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.ActionExpansion;
 import com.soyaldo.actionapi.Actions;
 import com.soyaldo.actionapi.expansions.*;
-import com.soyaldo.actionapi.util.ActionUtil;
-import com.soyaldo.actionapi.util.VaultUtil;
-import net.milkbowl.vault.economy.Economy;
+import com.soyaldo.actionapi.interfaces.ActionExpansion;
+import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.util.ActionInfo;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -15,8 +13,7 @@ import java.util.List;
 public class ActionManager {
 
     private final JavaPlugin javaPlugin;
-    private Economy economy = null;
-    private final HashMap<String, ActionExpansion> actionExpansions = new HashMap<>();
+    private final HashMap<String, ActionExpansion> expansions = new HashMap<>();
 
     public ActionManager(JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
@@ -26,83 +23,60 @@ public class ActionManager {
         return javaPlugin;
     }
 
-    public Economy getEconomy() {
-        return economy;
-    }
-
     public void registerManager() {
-        if (VaultUtil.isEconomyEnabled()) {
-            economy = VaultUtil.getEconomy();
-        }
-
-        addActionExpansion(new ActionBarExpansion(this));
-        addActionExpansion(new BroadcastExpansion(this));
-        addActionExpansion(new ConsoleExpansion(this));
-        addActionExpansion(new MessageExpansion(this));
-        addActionExpansion(new PlayerExpansion(this));
-        addActionExpansion(new SoundExpansion(this));
-        addActionExpansion(new TitleExpansion(this));
-
+        reloadManager();
     }
 
     public void reloadManager() {
-
+        // Clear current expansions.
+        expansions.clear();
+        // Adding default expansion.
+        addExpansion(new ActionBarExpansion());
+        addExpansion(new BroadcastExpansion());
+        addExpansion(new CommandExpansion());
+        addExpansion(new ConsoleExpansion());
+        addExpansion(new MessageExpansion());
+        addExpansion(new PlayerExpansion());
+        addExpansion(new SoundExpansion());
+        addExpansion(new TitleExpansion());
     }
 
-    public boolean existActionExpansion(String type) {
-        return actionExpansions.containsKey(type);
+    public boolean existExpansion(String expansionName) {
+        return expansions.containsKey(expansionName);
     }
 
-    public void addActionExpansion(ActionExpansion actionExpansion) {
-        actionExpansions.put(actionExpansion.getType(), actionExpansion);
+    public void addExpansion(ActionExpansion actionExpansion) {
+        expansions.put(actionExpansion.getName(), actionExpansion);
     }
 
-    public void removeActionExpansion(String type) {
-        actionExpansions.remove(type);
+    public void removeExpansion(String expansionName) {
+        expansions.remove(expansionName);
     }
 
-    public ActionExpansion getActionExpansion(String type) {
-        return actionExpansions.get(type);
+    public ActionExpansion getExpansion(String expansionName) {
+        return expansions.get(expansionName);
     }
 
-    public Action loadAction(String format) {
-        // Get the action type of the format.
-        String actionType = ActionUtil.getType(format);
-
-        // Get the ActionExpansion corresponding to the type of action.
-        ActionExpansion actionExpansion = actionExpansions.get(actionType);
-
-        // If the ActionExpansion is not null.
-        if (actionExpansion != null) {
-            // Return the Action.
-            return actionExpansion.generateAction(format);
-        }
-
-        // Return null.
-        return null;
-    }
-
-    public Actions loadActions(List<String> formats) {
-        // Create a new Actions.
-        Actions actions = new Actions();
-
-        // Iterate all formats.
-        for (String format : formats) {
-
-            // Create a new Action from the load method with the format.
-            Action action = loadAction(format);
-
-            // If Action created is not null.
-            if (action != null) {
-
-                // Add the Action to Actions.
-                actions.addAction(action);
-
+    public Action loadAction(String actionFormat) {
+        Action action = null;
+        ActionInfo actionInfo = new ActionInfo(this, actionFormat);
+        if (expansions.containsKey(actionInfo.getType())) {
+            ActionExpansion actionExpansion = expansions.get(actionInfo.getType());
+            if (actionExpansion != null) {
+                action = actionExpansion.generateAction(actionInfo);
             }
-
         }
+        return action;
+    }
 
-        // Return the Actions.
+    public Actions loadActions(List<String> actionFormats) {
+        Actions actions = new Actions();
+        for (String actionFormat : actionFormats) {
+            Action action = loadAction(actionFormat);
+            if (action != null) {
+                actions.addAction(action);
+            }
+        }
         return actions;
     }
 

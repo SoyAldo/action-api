@@ -1,45 +1,45 @@
 package com.soyaldo.actionapi;
 
+import com.soyaldo.actionapi.models.Action;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Actions {
 
-    private final LinkedHashMap<String, Action> actions = new LinkedHashMap<>();
+    private final List<Action> actions = new ArrayList<>();
 
-    public boolean existAction(String format) {
-        return actions.containsKey(format);
+    public boolean containAction(Action action) {
+        return actions.contains(action);
     }
 
     public void addAction(Action action) {
-        actions.put(action.getFormat(), action);
+        actions.add(action);
     }
 
-    public Action getAction(String format) {
-        return actions.get(format);
+    public void removeAction(Action action) {
+        actions.remove(action);
     }
 
-    public void removeAction(String format) {
-        actions.remove(format);
+    public List<Action> getActions() {
+        return actions;
     }
 
-    public void executeAll(Player player) {
-        actions.values().forEach(action -> action.execute(player));
+    public void execute() {
+        for (Action action : actions) action.execute();
     }
 
-    public void executeAll(Player player, String[][] replacements) {
-        actions.values().forEach(action -> action.execute(player, replacements));
+    public void execute(String[][] requirements) {
+        for (Action action : actions) action.execute(requirements);
     }
 
-    public List<String> serialize() {
-        List<String> result = new ArrayList<>();
+    public void execute(Player player) {
+        for (Action action : actions) action.execute(player);
+    }
 
-        for (Action action : actions.values()) result.add(action.toString());
-
-        return result;
+    public void execute(Player player, String[][] requirements) {
+        for (Action action : actions) action.execute(player, requirements);
     }
 
 }

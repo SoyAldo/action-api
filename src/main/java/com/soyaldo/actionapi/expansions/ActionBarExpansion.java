@@ -1,22 +1,19 @@
 package com.soyaldo.actionapi.expansions;
 
 import com.soyaldo.actionapi.actions.ActionBarAction;
-import com.soyaldo.actionapi.managers.ActionManager;
-import com.soyaldo.actionapi.util.ActionUtil;
-import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.ActionExpansion;
+import com.soyaldo.actionapi.interfaces.ActionExpansion;
+import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.util.ActionInfo;
 
-public class ActionBarExpansion extends ActionExpansion {
+public class ActionBarExpansion implements ActionExpansion {
 
-    public ActionBarExpansion(ActionManager actionManager) {
-        super(actionManager, "actionbar");
+    @Override
+    public String getName() {
+        return "actionbar";
     }
 
     @Override
-    public Action generateAction( String format ) {
-        ActionManager actionManager = getActionManager();
-        String value = ActionUtil.getValue(format);
-        return new ActionBarAction(actionManager, value);
+    public Action generateAction(ActionInfo actionInfo) {
+        return new ActionBarAction(actionInfo);
     }
-
 }

@@ -1,22 +1,20 @@
 package com.soyaldo.actionapi.expansions;
 
-import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.ActionExpansion;
 import com.soyaldo.actionapi.actions.ConsoleAction;
-import com.soyaldo.actionapi.managers.ActionManager;
-import com.soyaldo.actionapi.util.ActionUtil;
+import com.soyaldo.actionapi.interfaces.ActionExpansion;
+import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.util.ActionInfo;
 
-public class ConsoleExpansion extends ActionExpansion {
+public class ConsoleExpansion implements ActionExpansion {
 
-    public ConsoleExpansion(ActionManager actionManager) {
-        super(actionManager, "console");
+    @Override
+    public String getName() {
+        return "console";
     }
 
     @Override
-    public Action generateAction(String format) {
-        ActionManager actionManager = getActionManager();
-        String value = ActionUtil.getValue(format);
-        return new ConsoleAction(actionManager, value);
+    public Action generateAction(ActionInfo actionInfo) {
+        return new ConsoleAction(actionInfo);
     }
 
 }

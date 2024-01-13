@@ -8,7 +8,7 @@
     <artifactId>action-api</artifactId>
 
     <name>action-api</name>
-    <version>1.7.0</version>
+    <version>2.0.0</version>
     <description>Action API for your minecraft plugins.</description>
     <url>https://soyaldo.com/plugin/action-api</url>
 
@@ -37,10 +37,6 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
@@ -55,12 +51,6 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.MilkBowl</groupId>
-            <artifactId>VaultAPI</artifactId>
-            <version>1.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
