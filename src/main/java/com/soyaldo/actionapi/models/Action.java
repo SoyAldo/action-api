@@ -64,15 +64,20 @@ public abstract class Action {
 
     public void execute(String[][] replacements) {
         if (extras.containsKey("delay")) {
-            if ((Integer) extras.get("delay") > 0) {
-                JavaPlugin javaPlugin = actionManager.getJavaPlugin();
-                BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
-                if (extras.containsKey("async")) {
-                    bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(replacements), (Integer) extras.get("delay"));
+            try {
+                int delay = Integer.parseInt((String) extras.get("delay"));
+                if (delay > 0) {
+                    JavaPlugin javaPlugin = actionManager.getJavaPlugin();
+                    BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
+                    if (extras.containsKey("async")) {
+                        bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(replacements), delay);
+                    } else {
+                        bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(replacements), delay);
+                    }
                 } else {
-                    bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(replacements), (Integer) extras.get("delay"));
+                    executeAction(replacements);
                 }
-            } else {
+            } catch (NumberFormatException e) {
                 executeAction(replacements);
             }
         } else {
@@ -86,16 +91,21 @@ public abstract class Action {
 
     public void execute(Player player, String[][] replacements) {
         if (extras.containsKey("delay")) {
-            if ((Integer) extras.get("delay") > 0) {
-                JavaPlugin javaPlugin = actionManager.getJavaPlugin();
-                BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
-                if (extras.containsKey("async")) {
-                    bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(player, replacements), (Integer) extras.get("delay"));
+            try {
+                int delay = Integer.parseInt((String) extras.get("delay"));
+                if (delay > 0) {
+                    JavaPlugin javaPlugin = actionManager.getJavaPlugin();
+                    BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
+                    if (extras.containsKey("async")) {
+                        bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(player, replacements), delay);
+                    } else {
+                        bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(player, replacements), delay);
+                    }
                 } else {
-                    bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(player, replacements), (Integer) extras.get("delay"));
+                    executeAction(replacements);
                 }
-            } else {
-                executeAction(player, replacements);
+            } catch (NumberFormatException e) {
+                executeAction(replacements);
             }
         } else {
             executeAction(player, replacements);
