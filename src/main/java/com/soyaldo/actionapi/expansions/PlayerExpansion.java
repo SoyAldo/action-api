@@ -1,22 +1,20 @@
 package com.soyaldo.actionapi.expansions;
 
-import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.ActionExpansion;
 import com.soyaldo.actionapi.actions.PlayerAction;
-import com.soyaldo.actionapi.managers.ActionManager;
-import com.soyaldo.actionapi.util.ActionUtil;
+import com.soyaldo.actionapi.interfaces.ActionExpansion;
+import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.util.ActionInfo;
 
-public class PlayerExpansion extends ActionExpansion {
+public class PlayerExpansion implements ActionExpansion {
 
-    public PlayerExpansion(ActionManager actionManager) {
-        super(actionManager, "player");
+    @Override
+    public String getName() {
+        return "player";
     }
 
     @Override
-    public Action generateAction(String format) {
-        ActionManager actionManager = getActionManager();
-        String value = ActionUtil.getValue(format);
-        return new PlayerAction(actionManager, value);
+    public Action generateAction(ActionInfo actionInfo) {
+        return new PlayerAction(actionInfo);
     }
 
 }

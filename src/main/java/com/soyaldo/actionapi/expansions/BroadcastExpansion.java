@@ -1,22 +1,20 @@
 package com.soyaldo.actionapi.expansions;
 
-import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.ActionExpansion;
 import com.soyaldo.actionapi.actions.BroadcastAction;
-import com.soyaldo.actionapi.managers.ActionManager;
-import com.soyaldo.actionapi.util.ActionUtil;
+import com.soyaldo.actionapi.interfaces.ActionExpansion;
+import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.util.ActionInfo;
 
-public class BroadcastExpansion extends ActionExpansion {
+public class BroadcastExpansion implements ActionExpansion {
 
-    public BroadcastExpansion(ActionManager actionManager) {
-        super(actionManager, "broadcast");
+    @Override
+    public String getName() {
+        return "broadcast";
     }
 
     @Override
-    public Action generateAction(String format) {
-        ActionManager actionManager = getActionManager();
-        String value = ActionUtil.getValue(format);
-        return new BroadcastAction(actionManager, value);
+    public Action generateAction(ActionInfo actionInfo) {
+        return new BroadcastAction(actionInfo);
     }
 
 }

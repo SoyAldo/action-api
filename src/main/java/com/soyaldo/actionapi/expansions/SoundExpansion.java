@@ -1,22 +1,20 @@
 package com.soyaldo.actionapi.expansions;
 
 import com.soyaldo.actionapi.actions.SoundAction;
-import com.soyaldo.actionapi.managers.ActionManager;
-import com.soyaldo.actionapi.util.ActionUtil;
-import com.soyaldo.actionapi.Action;
-import com.soyaldo.actionapi.ActionExpansion;
+import com.soyaldo.actionapi.interfaces.ActionExpansion;
+import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.util.ActionInfo;
 
-public class SoundExpansion extends ActionExpansion {
+public class SoundExpansion implements ActionExpansion {
 
-    public SoundExpansion(ActionManager actionManager) {
-        super(actionManager, "sound");
+    @Override
+    public String getName() {
+        return "sound";
     }
 
     @Override
-    public Action generateAction(String format) {
-        ActionManager actionManager = getActionManager();
-        String value = ActionUtil.getValue(format);
-        return new SoundAction(actionManager, value);
+    public Action generateAction(ActionInfo actionInfo) {
+        return new SoundAction(actionInfo);
     }
 
 }
