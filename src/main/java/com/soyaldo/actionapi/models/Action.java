@@ -104,29 +104,29 @@ public abstract class Action {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         // Type
-        result = result + "[" + type + "]";
+        result.append("[").append(type).append("]");
         // Content
         if (!content.isEmpty()) {
-            result = result + " " + content + " ";
+            result.append(" ").append(content).append(" ");
         }
         // Extra
         if (!extras.isEmpty()) {
             for (String extra : extras.keySet()) {
                 if (((String) extras.get(extra)).isEmpty()) {
-                    result = result + "<" + extra + "> ";
+                    result.append("<").append(extra).append("> ");
                 } else {
-                    result = result + "<" + extra + "=" + extras.get(extra).toString() + ">";
+                    result.append("<").append(extra).append("=").append(extras.get(extra).toString()).append(">");
                 }
             }
         }
         // Remove last blank space.
-        if (result.endsWith(" ")) {
-            result = result.substring(0, result.length() - 1);
+        if (result.toString().endsWith(" ")) {
+            result = new StringBuilder(result.substring(0, result.length() - 1));
         }
         // Return result.
-        return result;
+        return result.toString();
     }
 
 }
