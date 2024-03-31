@@ -45,6 +45,9 @@ public class CommandAction extends Action {
         command = MineDown.parseLegacy(command);
         // Execute command
         String finalCommand = command;
+
+        player.sendMessage("command: |" + finalCommand + '|');
+
         if (getExtras().containsKey("console")) {
             ConsoleCommandSender consoleCommandSender = getActionManager().getJavaPlugin().getServer().getConsoleSender();
             getActionManager().getJavaPlugin().getServer().getScheduler().runTaskLater(
