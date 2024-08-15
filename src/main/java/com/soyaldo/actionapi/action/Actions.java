@@ -1,6 +1,5 @@
-package com.soyaldo.actionapi;
+package com.soyaldo.actionapi.action;
 
-import com.soyaldo.actionapi.models.Action;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class Actions {
         String action = "(message) Hi :D <delay=10> <async>";
 
         String type = "";
-        String content = "";
+        StringBuilder content = new StringBuilder();
         List<String> extras = new ArrayList<>();
 
         String[] parts = action.split(" ");
@@ -60,10 +59,10 @@ public class Actions {
                 continue;
             }
 
-            content = content + part + " ";
+            content.append(part).append(" ");
         }
-        if (!content.isEmpty()) {
-            content = content.substring(0, content.length() - 1);
+        if (content.length() > 0) {
+            content = new StringBuilder(content.substring(0, content.length() - 1));
         }
 
         System.out.println("Type: '" + type + "'");

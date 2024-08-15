@@ -1,8 +1,7 @@
 package com.soyaldo.actionapi.actions;
 
-import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.action.Action;
 import com.soyaldo.actionapi.util.ActionInfo;
-import com.soyaldo.actionapi.util.MineDown;
 import com.soyaldo.actionapi.util.PlaceholderApi;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;

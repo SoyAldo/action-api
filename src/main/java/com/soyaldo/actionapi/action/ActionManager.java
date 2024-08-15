@@ -1,10 +1,9 @@
-package com.soyaldo.actionapi.managers;
+package com.soyaldo.actionapi.action;
 
-import com.soyaldo.actionapi.Actions;
 import com.soyaldo.actionapi.expansions.*;
 import com.soyaldo.actionapi.interfaces.ActionExpansion;
-import com.soyaldo.actionapi.models.Action;
 import com.soyaldo.actionapi.util.ActionInfo;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -12,15 +11,12 @@ import java.util.List;
 
 public class ActionManager {
 
+    @Getter
     private final JavaPlugin javaPlugin;
     private final HashMap<String, ActionExpansion> expansions = new HashMap<>();
 
     public ActionManager(JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
-    }
-
-    public JavaPlugin getJavaPlugin() {
-        return javaPlugin;
     }
 
     public void registerManager() {
@@ -57,16 +53,21 @@ public class ActionManager {
         return expansions.get(expansionName);
     }
 
+    /**
+     * Load an Action from action format.
+     *
+     * @param actionFormat The action format.
+     * @return Action if the format is correct of null if not.
+     */
     public Action loadAction(String actionFormat) {
-        Action action = null;
-        ActionInfo actionInfo = new ActionInfo(this, actionFormat);
-        if (expansions.containsKey(actionInfo.getType())) {
-            ActionExpansion actionExpansion = expansions.get(actionInfo.getType());
-            if (actionExpansion != null) {
-                action = actionExpansion.generateAction(actionInfo);
-            }
-        }
-        return action;
+        // Create a new instance of ActionInfo with the action format.
+        ActionInfo actionInfo = new ActionInfo(actionFormat);
+        // Get the ActionExpansion from the expansions map.
+        ActionExpansion actionExpansion = expansions.get(actionInfo.getType());
+        // If the ActionExpansion is null. Return clause.
+        if (actionExpansion == null) return null;
+        // Return the Action.
+        return actionExpansion.generateAction(actionInfo);
     }
 
     public Actions loadActions(List<String> actionFormats) {

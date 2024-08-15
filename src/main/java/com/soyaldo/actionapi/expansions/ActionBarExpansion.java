@@ -2,7 +2,7 @@ package com.soyaldo.actionapi.expansions;
 
 import com.soyaldo.actionapi.actions.ActionBarAction;
 import com.soyaldo.actionapi.interfaces.ActionExpansion;
-import com.soyaldo.actionapi.models.Action;
+import com.soyaldo.actionapi.action.Action;
 import com.soyaldo.actionapi.util.ActionInfo;
 
 public class ActionBarExpansion implements ActionExpansion {

@@ -8,3 +8,4 @@ website: "https://soyaldo.com/project/action-api"
 
 api-version: 1.13
 softdepend: [ "PlaceholderAPI", "Vault" ]
+
