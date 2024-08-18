@@ -19,12 +19,31 @@ public class ActionInfo {
         List<String> tempExtras = new ArrayList<>();
 
         String[] parts = actionFormat.split(" ");
-        for (String part : parts) {
+        for (int i = 0; i < parts.length; i++) {
+            String part = parts[i];
             if (part.startsWith("(") && part.endsWith(")")) {
                 tempType = part.substring(1, part.length() - 1);
                 continue;
             }
             if (part.startsWith("<") && part.endsWith(">")) {
+                String subString = part.substring(1, part.length() - 1);
+                if (subString.contains("<") || subString.contains(">")) {
+                    tempContent.append(part).append(" ");
+                    continue;
+                }
+                if (parts.length > i + 1) {
+                    String nextPart = parts[i + 1];
+                    if (nextPart.startsWith("<") && nextPart.endsWith(">")) {
+                        String subStringNext = nextPart.substring(1, nextPart.length() - 1);
+                        if (subStringNext.contains("<") || subStringNext.contains(">")) {
+                            tempContent.append(part).append(" ");
+                            continue;
+                        }
+                    } else {
+                        tempContent.append(part).append(" ");
+                        continue;
+                    }
+                }
                 tempExtras.add(part.substring(1, part.length() - 1));
                 continue;
             }

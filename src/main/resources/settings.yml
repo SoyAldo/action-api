@@ -1,0 +1,6 @@
+actions:
+  actionBar: "(actionbar) Hello world!"
+  actionBarGlobal: "(actionbar) Hello world! <global>"
+  actionBarDelay: "(actionbar) Hello world! <delay=60>"
+  actionBarDelayAsync: "(actionbar) Hello world! <delay=60> <async>"
+  actionBarMiniMessage: "(actionbar) Hello <rainbow>world</rainbow>, isn't <blue>MiniMessage</blue> fun?"

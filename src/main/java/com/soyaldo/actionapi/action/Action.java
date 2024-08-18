@@ -36,9 +36,25 @@ public abstract class Action {
         JavaPlugin javaPlugin = actionManager.getJavaPlugin();
         BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
         if (actionInfo.getExtras().containsKey("async")) {
-            bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(replacements), delay);
+            bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> {
+                if (actionInfo.getExtras().containsKey("global")) {
+                    for (Player target : actionManager.getJavaPlugin().getServer().getOnlinePlayers()) {
+                        executeAction(target, replacements);
+                    }
+                } else {
+                    executeAction(replacements);
+                }
+            }, delay);
         } else {
-            bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(replacements), delay);
+            bukkitScheduler.runTaskLater(javaPlugin, () -> {
+                if (actionInfo.getExtras().containsKey("global")) {
+                    for (Player target : actionManager.getJavaPlugin().getServer().getOnlinePlayers()) {
+                        executeAction(target, replacements);
+                    }
+                } else {
+                    executeAction(replacements);
+                }
+            }, delay);
         }
     }
 
@@ -57,9 +73,25 @@ public abstract class Action {
         JavaPlugin javaPlugin = actionManager.getJavaPlugin();
         BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
         if (actionInfo.getExtras().containsKey("async")) {
-            bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(player, replacements), delay);
+            bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> {
+                if (actionInfo.getExtras().containsKey("global")) {
+                    for (Player target : actionManager.getJavaPlugin().getServer().getOnlinePlayers()) {
+                        executeAction(target, replacements);
+                    }
+                } else {
+                    executeAction(player, replacements);
+                }
+            }, delay);
         } else {
-            bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(player, replacements), delay);
+            bukkitScheduler.runTaskLater(javaPlugin, () -> {
+                if (actionInfo.getExtras().containsKey("global")) {
+                    for (Player target : actionManager.getJavaPlugin().getServer().getOnlinePlayers()) {
+                        executeAction(target, replacements);
+                    }
+                } else {
+                    executeAction(player, replacements);
+                }
+            }, delay);
         }
     }
 
