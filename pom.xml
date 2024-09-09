@@ -8,7 +8,7 @@
     <artifactId>action-api</artifactId>
 
     <name>action-api</name>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <description>Action API for your minecraft plugins.</description>
     <url>https://soyaldo.com/plugin/action-api</url>
 
@@ -50,15 +50,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
+            <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.17.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

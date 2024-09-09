@@ -6,6 +6,8 @@ import com.soyaldo.actionapi.util.PlaceholderApi;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 
@@ -22,14 +24,14 @@ public class ActionBarAction extends Action {
         for (String[] replacement : replacements) {
             message = message.replace(replacement[0], replacement[1]);
         }
-        // Send the message.
-        try {
-            Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).console();
-            MiniMessage miniMessage = MiniMessage.miniMessage();
-            Component component = miniMessage.deserialize(message);
-            audience.sendActionBar(component);
-        } catch (Exception e) {
-            getActionManager().getJavaPlugin().getLogger().info("ERROR: " + e.getMessage());
+        // Glogal
+        if (getActionInfo().getExtras().containsKey("global")) {
+            for (Player player : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
+                player.sendActionBar();
+            }
+        } else {
+            // Send the message.
+            getActionManager().getJavaPlugin().getServer().getConsoleSender().sendMessage(message);
         }
     }
 
