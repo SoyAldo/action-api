@@ -20,71 +20,39 @@ public class ActionBarAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        String message = getActionInfo().getContent();
-        // Apply the replacements.
-        String finalMessage = Text.replace(message, replacements);
-        // Send the message.
-        try {
-            // Creating a final message constant.
-            MiniMessage miniMessage = MiniMessage.miniMessage();
-            // Executing for all players.
-            if (getActionInfo().getExtras().containsKey("global")) {
-                PlayerUtil.executeAll(player -> {
-                    Component component = miniMessage.deserialize(finalMessage);
-                    Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).player(player);
-                    audience.sendActionBar(component);
-                });
-            }
-            // Execute for console.
-            Component component = miniMessage.deserialize(finalMessage);
-            Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).console();
-            audience.sendMessage(component);
-        } catch (Exception e) {
-            // Executing for all players.
-            if (getActionInfo().getExtras().containsKey("global")) {
-                PlayerUtil.executeAll(player -> {
-                    player.sendActionBar(finalMessage);
-                });
-            }
-            // Execute for console.
-            Bukkit.getServer().getConsoleSender().sendMessage(finalMessage);
+        String message = Text.replace(getActionInfo().getContent(), replacements);
+        // Executing for all players.
+        if (getActionInfo().getExtras().containsKey("global")) {
+            PlayerUtil.executeAll(player -> {
+                String finalMessage = PlaceholderApi.setPlaceholders(player, message);
+                Component component = MiniMessage.miniMessage().deserialize(finalMessage);
+                Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).player(player);
+                audience.sendActionBar(component);
+            });
         }
+        // Execute for console.
+        Component component = MiniMessage.miniMessage().deserialize(message);
+        Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).console();
+        audience.sendActionBar(component);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        String message = getActionInfo().getContent();
-        // Apply the replacements
-        message = Text.replace(message, replacements);
-        // Apply the variables from PlaceholderAPI.
-        message = PlaceholderApi.setPlaceholders(player, message);
-        // Send the message.
-        try {
-            // Creating a final message constant.
-            MiniMessage miniMessage = MiniMessage.miniMessage();
-            final Component component = miniMessage.deserialize(message);
-            // Executing for all players.
-            if (getActionInfo().getExtras().containsKey("global")) {
-                PlayerUtil.executeAll(target -> {
-                    Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).player(target);
-                    audience.sendActionBar(component);
-                });
-            } else {
-                // Execute only to player.
-                Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).player(player);
-                audience.sendMessage(component);
-            }
-        } catch (Exception e) {
-            // Creating a final message constant.
-            final String finalMessage = message;
-            // Executing for all players.
-            if (getActionInfo().getExtras().containsKey("global")) {
-                PlayerUtil.executeAll(target -> {
-                    target.sendMessage(finalMessage);
-                });
-            } else {
-                player.sendActionBar(message);
-            }
+        String message = Text.replace(getActionInfo().getContent(), replacements);
+        // Executing for all players.
+        if (getActionInfo().getExtras().containsKey("global")) {
+            PlayerUtil.executeAll(target -> {
+                String finalMessage = PlaceholderApi.setPlaceholders(target, message);
+                Component component = MiniMessage.miniMessage().deserialize(finalMessage);
+                Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).player(target);
+                audience.sendActionBar(component);
+            });
+        } else {
+            // Execute only to player.
+            String finalMessage = PlaceholderApi.setPlaceholders(player, message);
+            Component component = MiniMessage.miniMessage().deserialize(finalMessage);
+            Audience audience = BukkitAudiences.create(getActionManager().getJavaPlugin()).player(player);
+            audience.sendActionBar(component);
         }
     }
 
