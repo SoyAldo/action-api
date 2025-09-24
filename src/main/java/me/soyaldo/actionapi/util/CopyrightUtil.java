@@ -3,7 +3,7 @@ package me.soyaldo.actionapi.util;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BrandUtil {
+public class CopyrightUtil {
 
     public static void sendVersion(JavaPlugin javaPlugin, CommandSender commandSender) {
         sendVersionStatus(javaPlugin, commandSender, "");
