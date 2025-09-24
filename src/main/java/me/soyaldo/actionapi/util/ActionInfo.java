@@ -34,7 +34,7 @@ public class ActionInfo {
 
             tempContent.append(part).append(" ");
         }
-        if (tempContent.length() > 0) {
+        if (!tempContent.isEmpty()) {
             tempContent = new StringBuilder(tempContent.substring(0, tempContent.length() - 1));
         }
 

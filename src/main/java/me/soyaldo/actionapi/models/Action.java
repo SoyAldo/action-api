@@ -53,6 +53,7 @@ public abstract class Action {
         return extras;
     }
 
+    // Execute
     public abstract void executeAction(String[][] replacements);
 
     public abstract void executeAction(Player player, String[][] replacements);
@@ -63,20 +64,15 @@ public abstract class Action {
 
     public void execute(String[][] replacements) {
         if (extras.containsKey("delay")) {
-            try {
-                int delay = Integer.parseInt((String) extras.get("delay"));
-                if (delay > 0) {
-                    JavaPlugin javaPlugin = actionManager.getJavaPlugin();
-                    BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
-                    if (extras.containsKey("async")) {
-                        bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(replacements), delay);
-                    } else {
-                        bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(replacements), delay);
-                    }
+            if ((Integer) extras.get("delay") > 0) {
+                JavaPlugin javaPlugin = actionManager.getJavaPlugin();
+                BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
+                if (extras.containsKey("async")) {
+                    bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(replacements), (Integer) extras.get("delay"));
                 } else {
-                    executeAction(replacements);
+                    bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(replacements), (Integer) extras.get("delay"));
                 }
-            } catch (NumberFormatException e) {
+            } else {
                 executeAction(replacements);
             }
         } else {
@@ -90,51 +86,48 @@ public abstract class Action {
 
     public void execute(Player player, String[][] replacements) {
         if (extras.containsKey("delay")) {
-            try {
-                int delay = Integer.parseInt((String) extras.get("delay"));
-                if (delay > 0) {
-                    JavaPlugin javaPlugin = actionManager.getJavaPlugin();
-                    BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
-                    if (extras.containsKey("async")) {
-                        bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(player, replacements), delay);
-                    } else {
-                        bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(player, replacements), delay);
-                    }
+            if ((Integer) extras.get("delay") > 0) {
+                JavaPlugin javaPlugin = actionManager.getJavaPlugin();
+                BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
+                if (extras.containsKey("async")) {
+                    bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(player, replacements), (Integer) extras.get("delay"));
                 } else {
-                    executeAction(replacements);
+                    bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(player, replacements), (Integer) extras.get("delay"));
                 }
-            } catch (NumberFormatException e) {
-                executeAction(replacements);
+            } else {
+                executeAction(player, replacements);
+
             }
         } else {
             executeAction(player, replacements);
         }
     }
 
-    public String serialize() {
-        StringBuilder result = new StringBuilder();
+    @Override
+    public String toString() {
+        String result = "";
         // Type
-        result.append("[").append(type).append("]");
+        result = result + "[" + type + "]";
         // Content
         if (!content.isEmpty()) {
-            result.append(" ").append(content).append(" ");
+            result = result + " " + content + " ";
         }
         // Extra
         if (!extras.isEmpty()) {
             for (String extra : extras.keySet()) {
                 if (((String) extras.get(extra)).isEmpty()) {
-                    result.append("<").append(extra).append("> ");
+                    result = result + "<" + extra + "> ";
                 } else {
-                    result.append("<").append(extra).append("=").append(extras.get(extra).toString()).append(">");
+                    result = result + "<" + extra + "=" + extras.get(extra).toString() + ">";
                 }
             }
         }
         // Remove last blank space.
-        if (result.toString().endsWith(" ")) {
-            result = new StringBuilder(result.substring(0, result.length() - 1));
+        if (result.endsWith(" ")) {
+            result = result.substring(0, result.length() - 1);
         }
         // Return result.
-        return result.toString();
+        return result;
     }
 
 }

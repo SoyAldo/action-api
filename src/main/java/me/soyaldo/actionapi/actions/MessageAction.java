@@ -3,7 +3,7 @@ package me.soyaldo.actionapi.actions;
 import me.soyaldo.actionapi.models.Action;
 import me.soyaldo.actionapi.util.ActionInfo;
 import me.soyaldo.actionapi.util.PlaceholderApi;
-import net.md_5.bungee.api.chat.TextComponent;
+import de.themoep.minedown.MineDown;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -20,8 +20,7 @@ public class MessageAction extends Action {
         for (String[] replacement : replacements) {
             message = message.replace(replacement[0], replacement[1]);
         }
-        // Send the message to the player.
-        Bukkit.getServer().getConsoleSender().spigot().sendMessage(new TextComponent(message));
+        Bukkit.getServer().getConsoleSender().spigot().sendMessage(MineDown.parse(message));
     }
 
     @Override
@@ -34,7 +33,7 @@ public class MessageAction extends Action {
         // Apply the variables from PlaceholderAPI.
         message = PlaceholderApi.setPlaceholders(player, message);
         // Send the message to the player.
-        player.spigot().sendMessage(new TextComponent(message));
+        player.spigot().sendMessage(MineDown.parse(message));
     }
 
 }

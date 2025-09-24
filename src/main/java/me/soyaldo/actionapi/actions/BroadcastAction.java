@@ -3,7 +3,7 @@ package me.soyaldo.actionapi.actions;
 import me.soyaldo.actionapi.models.Action;
 import me.soyaldo.actionapi.util.ActionInfo;
 import me.soyaldo.actionapi.util.PlaceholderApi;
-import net.md_5.bungee.api.chat.TextComponent;
+import de.themoep.minedown.MineDown;
 import org.bukkit.entity.Player;
 
 public class BroadcastAction extends Action {
@@ -22,7 +22,7 @@ public class BroadcastAction extends Action {
         }
         // Send the message to the entire server.
         for (Player target : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
-            target.spigot().sendMessage(new TextComponent(message));
+            target.spigot().sendMessage(MineDown.parse(message));
         }
     }
 
@@ -38,7 +38,7 @@ public class BroadcastAction extends Action {
         message = PlaceholderApi.setPlaceholders(player, message);
         // Send the message to the entire server.
         for (Player target : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
-            target.spigot().sendMessage(new TextComponent(message));
+            target.spigot().sendMessage(MineDown.parse(message));
         }
     }
 
