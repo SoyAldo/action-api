@@ -1,4 +1,4 @@
-package me.soyaldo.actionapi.util;
+package me.soyaldo.actionapi.models;
 
 import me.soyaldo.actionapi.managers.ActionManager;
 
