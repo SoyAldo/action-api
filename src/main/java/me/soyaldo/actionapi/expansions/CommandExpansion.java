@@ -3,7 +3,7 @@ package me.soyaldo.actionapi.expansions;
 import me.soyaldo.actionapi.actions.CommandAction;
 import me.soyaldo.actionapi.interfaces.ActionExpansion;
 import me.soyaldo.actionapi.models.Action;
-import me.soyaldo.actionapi.util.ActionInfo;
+import me.soyaldo.actionapi.models.ActionInfo;
 
 public class CommandExpansion implements ActionExpansion {
 
