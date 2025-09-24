@@ -96,6 +96,7 @@ public abstract class Action {
                 }
             } else {
                 executeAction(player, replacements);
+
             }
         } else {
             executeAction(player, replacements);

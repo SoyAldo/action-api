@@ -1,7 +1,6 @@
 package me.soyaldo.actionapi.managers;
 
-import me.soyaldo.actionapi.Actions;
-import com.soyaldo.actionapi.expansions.*;
+import me.soyaldo.actionapi.models.Actions;
 import me.soyaldo.actionapi.expansions.*;
 import me.soyaldo.actionapi.interfaces.ActionExpansion;
 import me.soyaldo.actionapi.models.Action;

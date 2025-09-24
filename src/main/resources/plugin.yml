@@ -1,10 +1,12 @@
-main: "com.soyaldo.actionapi.ActionAPI"
+main: "me.soyaldo.actionapi.ActionAPI"
 
 name: "action-api"
 description: "Action API for your minecraft plugins."
-version: "1.7.0"
-author: SoyAldo
-website: "https://soyaldo.com/project/action-api"
+version: "4.0.0"
+author: "SoyAldo"
+website: "https://soyaldo.me/project/action-api"
 
-api-version: 1.13
-softdepend: [ PlaceholderAPI, Vault ]
+api-version: "1.18"
+softdepend:
+  - "PlaceholderAPI"
+  - "Vault"

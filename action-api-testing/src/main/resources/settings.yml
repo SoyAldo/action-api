@@ -1,8 +1,0 @@
-types:
-  actionbar: "[actionbar] Hello, I am a action bar action!"
-  broadcast: "[broadcast] Hello, I am a broadcast action!"
-  console: "[console] say Hello, I am a console action!"
-  message: "[message] Hello, I am a message action!"
-  player: "[player] say Hello, I am a player action!"
-  sound: "[sound] ENTITY_PLAYER_LEVELUP"
-  title: "[title] Hello;I am a title action!"

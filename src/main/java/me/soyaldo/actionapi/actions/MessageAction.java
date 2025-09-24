@@ -20,7 +20,6 @@ public class MessageAction extends Action {
         for (String[] replacement : replacements) {
             message = message.replace(replacement[0], replacement[1]);
         }
-        // Send the message to the player.
         Bukkit.getServer().getConsoleSender().spigot().sendMessage(MineDown.parse(message));
     }
 
