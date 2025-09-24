@@ -4,7 +4,7 @@ import me.soyaldo.actionapi.models.Actions;
 import me.soyaldo.actionapi.expansions.*;
 import me.soyaldo.actionapi.interfaces.ActionExpansion;
 import me.soyaldo.actionapi.models.Action;
-import me.soyaldo.actionapi.util.ActionInfo;
+import me.soyaldo.actionapi.models.ActionInfo;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
