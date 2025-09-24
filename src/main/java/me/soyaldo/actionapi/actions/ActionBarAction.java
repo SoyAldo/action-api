@@ -1,11 +1,10 @@
 package me.soyaldo.actionapi.actions;
 
 import me.soyaldo.actionapi.models.Action;
-import me.soyaldo.actionapi.util.ActionInfo;
-import me.soyaldo.actionapi.util.PlaceholderApi;
-import de.themoep.minedown.MineDown;
-import net.md_5.bungee.api.ChatMessageType;
+import me.soyaldo.actionapi.models.ActionInfo;
+import me.soyaldo.actionapi.util.ChatUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class ActionBarAction extends Action {
@@ -17,26 +16,14 @@ public class ActionBarAction extends Action {
     @Override
     public void executeAction(String[][] replacements) {
         String message = getContent();
-        // Apply the replacements
-        for (String[] replacement : replacements) {
-            message = message.replace(replacement[0], replacement[1]);
-        }
-        // Send the message to the player.
-        Bukkit.getServer().getConsoleSender().spigot().sendMessage(MineDown.parse(message));
+        ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+        ChatUtil.sendMessage(console, message);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        // Created a variable that will be the message.
         String message = getContent();
-        // Apply the replacements
-        for (String[] replacement : replacements) {
-            message = message.replace(replacement[0], replacement[1]);
-        }
-        // Apply the variables from PlaceholderAPI.
-        message = PlaceholderApi.setPlaceholders(player, message);
-        // Send the message to the player.
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, MineDown.parse(message));
+        ChatUtil.sendActionBar(player, message, replacements);
     }
 
 }
