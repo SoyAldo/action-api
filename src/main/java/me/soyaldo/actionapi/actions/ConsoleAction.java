@@ -1,9 +1,11 @@
 package me.soyaldo.actionapi.actions;
 
 import me.soyaldo.actionapi.models.Action;
-import me.soyaldo.actionapi.util.ActionInfo;
-import me.soyaldo.actionapi.util.MineDown;
-import me.soyaldo.actionapi.util.PlaceholderApi;
+import me.soyaldo.actionapi.models.ActionInfo;
+import me.soyaldo.actionapi.util.ChatUtil;
+import me.soyaldo.actionapi.util.PapiUtil;
+import me.soyaldo.actionapi.util.SchedulerUtil;
+import me.soyaldo.actionapi.util.TextUtil;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,39 +19,33 @@ public class ConsoleAction extends Action {
     @Override
     public void executeAction(String[][] replacements) {
         String command = getContent();
-        // Replacements
-        for (String[] replacement : replacements) {
-            command = command.replace(replacement[0], replacement[1]);
-        }
-        // Color
-        command = MineDown.parseLegacy(command);
-        // JavaPlugin
+        // Apply replacements
+        command = TextUtil.replace(command, replacements);
+        // Apply color
+        command = ChatUtil.colorizeLegacy(command);
+        // Getting the plugin and the console
         JavaPlugin javaPlugin = getActionManager().getJavaPlugin();
-        // ConsoleCommandSender
-        ConsoleCommandSender consoleCommandSender = javaPlugin.getServer().getConsoleSender();
+        ConsoleCommandSender console = javaPlugin.getServer().getConsoleSender();
         // Execute command
         String finalCommand = command;
-        javaPlugin.getServer().getScheduler().runTaskLater(javaPlugin, () -> javaPlugin.getServer().dispatchCommand(consoleCommandSender, finalCommand), 0L);
+        SchedulerUtil.runTaskLaterSync(javaPlugin, () -> javaPlugin.getServer().dispatchCommand(console, finalCommand), 0L);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
         String command = getContent();
-        // Replacements
-        for (String[] replacement : replacements) {
-            command = command.replace(replacement[0], replacement[1]);
-        }
-        // PlaceholderAPI
-        command = PlaceholderApi.setPlaceholders(player, command);
-        // Color
-        command = MineDown.parseLegacy(command);
-        // JavaPlugin
+        // Apply Replacements
+        command = TextUtil.replace(command, replacements);
+        // Apply PlaceholderAPI
+        command = PapiUtil.setPlaceholders(player, command);
+        // Apply color
+        command = ChatUtil.colorizeLegacy(command);
+        // Getting the plugin and the console
         JavaPlugin javaPlugin = getActionManager().getJavaPlugin();
-        // ConsoleCommandSender
-        ConsoleCommandSender consoleCommandSender = javaPlugin.getServer().getConsoleSender();
+        ConsoleCommandSender console = javaPlugin.getServer().getConsoleSender();
         // Execute command
         String finalCommand = command;
-        javaPlugin.getServer().getScheduler().runTaskLater(javaPlugin, () -> javaPlugin.getServer().dispatchCommand(consoleCommandSender, finalCommand), 0L);
+        SchedulerUtil.runTaskLaterSync(javaPlugin, () -> javaPlugin.getServer().dispatchCommand(console, finalCommand), 0L);
     }
 
 }
