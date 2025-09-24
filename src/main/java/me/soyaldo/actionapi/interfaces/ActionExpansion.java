@@ -1,7 +1,7 @@
 package me.soyaldo.actionapi.interfaces;
 
 import me.soyaldo.actionapi.models.Action;
-import me.soyaldo.actionapi.util.ActionInfo;
+import me.soyaldo.actionapi.models.ActionInfo;
 
 public interface ActionExpansion {
 
