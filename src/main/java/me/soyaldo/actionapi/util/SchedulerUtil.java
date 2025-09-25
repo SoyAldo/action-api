@@ -20,4 +20,24 @@ public class SchedulerUtil {
         runTaskLaterAsync(javaPlugin, runnable, 0L);
     }
 
+    public static void runTaskLater(JavaPlugin javaPlugin, Runnable runnable, long ticks, boolean async) {
+        if (async) {
+            runTaskLaterAsync(javaPlugin, runnable, ticks);
+        } else {
+            runTaskLaterSync(javaPlugin, runnable, ticks);
+        }
+    }
+
+    public static void runTaskLater(JavaPlugin javaPlugin, Runnable runnable, boolean async) {
+        runTaskLater(javaPlugin, runnable, 0, async);
+    }
+
+    public static void runTaskLater(JavaPlugin javaPlugin, Runnable runnable, long ticks) {
+        runTaskLater(javaPlugin, runnable, 0, false);
+    }
+
+    public static void runTaskLater(JavaPlugin javaPlugin, Runnable runnable) {
+        runTaskLater(javaPlugin, runnable, 0, false);
+    }
+
 }
