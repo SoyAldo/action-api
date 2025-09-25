@@ -17,3 +17,18 @@ timedMessage: "[message] Hello player! <delay=20>"
 globalMessage: "[message] Hello world! <global>"
 # Mensaje a todos los jugadores que tengan un permiso
 globalMessageWithPermission: "[message] Hello world! <global> <permission=hello.vip>"
+
+# Acción [command]
+# Con esta acción se podrá ejecutar un comando.
+# Atributos compatibles
+# <global>, <permission={text}, <delay={number}>, async
+# Atributos especiales
+# <console> => Ejecuta el comando desde la consola
+# <op> => Ejecuta el comando como un administrador
+
+# Comando desde un jugador
+commandFromPlayer: "[command] menu"
+# Comando desde un jugador
+commandFromConsole: "[command] day <console>"
+# Comando desde un jugador
+commandFromAllPlayers: "[command] menu <global>"

@@ -31,13 +31,11 @@ public class ActionManager {
         // Clear current expansions.
         expansions.clear();
         // Adding default expansion.
-        addExpansion(new ActionBarExpansion());
-        addExpansion(new CommandExpansion());
-        addExpansion(new ConsoleExpansion());
         addExpansion(new MessageExpansion());
-        addExpansion(new PlayerExpansion());
-        addExpansion(new SoundExpansion());
+        addExpansion(new CommandExpansion());
         addExpansion(new TitleExpansion());
+        addExpansion(new ActionBarExpansion());
+        addExpansion(new SoundExpansion());
     }
 
     /**
