@@ -2,9 +2,9 @@ package me.soyaldo.actionapi.actions;
 
 import me.soyaldo.actionapi.models.Action;
 import me.soyaldo.actionapi.models.ActionInfo;
-import me.soyaldo.actionapi.util.ChatUtil;
-import me.soyaldo.actionapi.util.NumberUtil;
-import me.soyaldo.actionapi.util.PapiUtil;
+import me.soyaldo.actionapi.util.*;
+import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class TitleAction extends Action {
@@ -15,97 +15,27 @@ public class TitleAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        if (getActionInfo().getContent().isEmpty()) return;
-        if (!getActionInfo().getExtras().containsKey("global")) return;
-
-        String content = getActionInfo().getContent();
-        // Default values.
-        String title;
-        String subTitle = "";
-        int fadeIn = 10;
-        int stay = 70;
-        int fadeOut = 20;
-        // Setting values.
-        if (!content.contains(";")) {
-            // Setting the title.
-            title = content;
-            // Apply replacements.
-            for (String[] replacement : replacements) {
-                title = title.replace(replacement[0], replacement[1]);
-            }
-            // Apply colors.
-            title = ChatUtil.colorizeLegacy(title);
-        } else {
-            String[] values = content.split(";");
-            // Apply title and subtitle.
-            title = values[0];
-            subTitle = values[1];
-            // Apply replacements.
-            for (String[] replacement : replacements) {
-                title = title.replace(replacement[0], replacement[1]);
-                subTitle = title.replace(replacement[0], replacement[1]);
-            }
-            // Apply colors.
-            title = ChatUtil.colorizeLegacy(title);
-            subTitle = ChatUtil.colorizeLegacy(subTitle);
-            // Apply fade in.
-            if (values.length > 2) fadeIn = NumberUtil.getInt(values[2], fadeIn);
-            // Apply stay.
-            if (values.length > 3) stay = NumberUtil.getInt(values[3], stay);
-            // Apply fade out.
-            if (values.length > 4) fadeOut = NumberUtil.getInt(values[4], fadeOut);
-        }
-        // Send title.
-        for (Player target : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
-            target.sendTitle(title, subTitle, fadeIn, stay, fadeOut);
-        }
+        ChatUtil.sendMessage(ActionUtil.getConsole(), getActionInfo().getContent(), replacements);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        if (getActionInfo().getContent().isEmpty()) return;
-        String content = getActionInfo().getContent();
         // Default values.
-        String title;
+        String title = getActionInfo().getContent();
         String subTitle = "";
-        int fadeIn = 10;
-        int stay = 70;
-        int fadeOut = 20;
-        // Setting values.
-        if (!content.contains(";")) {
-            // Setting the title.
-            title = content;
-            // Apply replacements.
-            for (String[] replacement : replacements) {
-                title = title.replace(replacement[0], replacement[1]);
-            }
-            // Apply PlaceholderAPI placeholders.
-            title = PapiUtil.setPlaceholders(player, title);
-            // Apply colors.
-            title = ChatUtil.colorizeLegacy(title);
-        } else {
-            String[] values = content.split(";");
+        int fadeIn = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-in")), 10);
+        int stay = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-in")), 70);
+        int fadeOut = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-in")), 20);
+        // Check title and subtitle
+        if (title.contains(";")) {
+            String[] values = title.split(";");
             // Apply title and subtitle.
             title = values[0];
             subTitle = values[1];
-            // Apply replacements.
-            for (String[] replacement : replacements) {
-                title = title.replace(replacement[0], replacement[1]);
-                subTitle = title.replace(replacement[0], replacement[1]);
-            }
-            // Apply PlaceholderAPI placeholders.
-            title = PapiUtil.setPlaceholders(player, title);
-            subTitle = PapiUtil.setPlaceholders(player, subTitle);
-            // Apply colors.
-            title = ChatUtil.colorizeLegacy(title);
-            subTitle = ChatUtil.colorizeLegacy(subTitle);
-            // Apply fade in.
-            if (values.length > 2) fadeIn = NumberUtil.getInt(values[2], fadeIn);
-            // Apply stay.
-            if (values.length > 3) stay = NumberUtil.getInt(values[3], stay);
-            // Apply fade out.
-            if (values.length > 4) fadeOut = NumberUtil.getInt(values[4], fadeOut);
         }
+        // Apply replacements, PlaceholderAPI and color
+        title = ActionUtil.processText(title, player, replacements);
+        subTitle = ActionUtil.processText(subTitle, player, replacements);
         // Send title.
         player.sendTitle(title, subTitle, fadeIn, stay, fadeOut);
     }
