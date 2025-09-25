@@ -40,19 +40,41 @@ public class ActionManager {
         addExpansion(new TitleExpansion());
     }
 
-    public boolean existExpansion(String expansionName) {
+    /**
+     * Check if an expansion exist
+     *
+     * @param expansionName the expansion name
+     * @return true if the expansion exist or false if not
+     */
+    public boolean existExpansionByName(String expansionName) {
         return expansions.containsKey(expansionName);
     }
 
+    /**
+     * Add new expansion
+     *
+     * @param actionExpansion the expansion to add
+     */
     public void addExpansion(ActionExpansion actionExpansion) {
         expansions.put(actionExpansion.getName(), actionExpansion);
     }
 
-    public void removeExpansion(String expansionName) {
-        expansions.remove(expansionName);
+    /**
+     * Remove an expansion
+     *
+     * @param expansionName the expansion name
+     */
+    public boolean removeExpansionByName(String expansionName) {
+        return expansions.remove(expansionName) != null;
     }
 
-    public ActionExpansion getExpansion(String expansionName) {
+    /**
+     * Get an expansion by name
+     *
+     * @param expansionName the expansion name
+     * @return The expansion if exist or null if not
+     */
+    public ActionExpansion getExpansionByName(String expansionName) {
         return expansions.get(expansionName);
     }
 
