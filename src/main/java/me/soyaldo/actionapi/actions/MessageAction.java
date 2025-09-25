@@ -3,8 +3,6 @@ package me.soyaldo.actionapi.actions;
 import me.soyaldo.actionapi.models.Action;
 import me.soyaldo.actionapi.models.ActionInfo;
 import me.soyaldo.actionapi.util.ChatUtil;
-import me.soyaldo.actionapi.util.PapiUtil;
-import de.themoep.minedown.MineDown;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
