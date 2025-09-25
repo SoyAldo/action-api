@@ -1,122 +1,108 @@
 package me.soyaldo.actionapi.models;
 
 import me.soyaldo.actionapi.managers.ActionManager;
+import me.soyaldo.actionapi.util.NumberUtil;
+import me.soyaldo.actionapi.util.SchedulerUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
-
-import java.util.HashMap;
 
 public abstract class Action {
 
     private final ActionManager actionManager;
-    private final String type;
-    private final String content;
-    private final HashMap<String, Object> extras;
+    private final ActionInfo actionInfo;
 
     public Action(ActionInfo actionInfo) {
         this.actionManager = actionInfo.getActionManager();
-        this.type = actionInfo.getType();
-        this.content = actionInfo.getContent();
-        this.extras = actionInfo.getExtras();
+        this.actionInfo = actionInfo;
     }
 
     public ActionManager getActionManager() {
         return actionManager;
     }
 
-    /**
-     * Get the action type.
-     *
-     * @return the action type.
-     */
-    public String getType() {
-        return type;
+    public ActionInfo getActionInfo() {
+        return actionInfo;
     }
 
-    /**
-     * Get the content.
-     *
-     * @return The action content if exist or empty.
-     */
-    public String getContent() {
-        return content;
-    }
-
-    /**
-     * Get a list of extras.
-     *
-     * @return Map of extras.
-     */
-    public HashMap<String, Object> getExtras() {
-        return extras;
-    }
-
-    // Execute
     public abstract void executeAction(String[][] replacements);
 
     public abstract void executeAction(Player player, String[][] replacements);
+
+    public void execute(String[][] replacements) {
+        JavaPlugin plugin = actionManager.getJavaPlugin();
+        boolean global = actionInfo.getExtras().containsKey("global");
+        boolean async = actionInfo.getExtras().containsKey("async");
+        int delay = NumberUtil.getInt(String.valueOf(actionInfo.getExtras().get("delay")), 0);
+        String permission = String.valueOf(actionInfo.getExtras().get("permission"));
+
+        Runnable execution = () -> {
+            if (global) {
+                for (Player tempPlayer : plugin.getServer().getOnlinePlayers()) {
+                    if (permission != null) {
+                        if (tempPlayer.hasPermission(permission)) {
+                            executeAction(tempPlayer, replacements);
+                        }
+                    }
+                }
+            } else {
+                executeAction(replacements);
+            }
+        };
+
+        SchedulerUtil.runTaskLater(plugin, execution, Math.max(delay, 0), async);
+    }
 
     public void execute() {
         execute(new String[][]{});
     }
 
-    public void execute(String[][] replacements) {
-        if (extras.containsKey("delay")) {
-            if ((Integer) extras.get("delay") > 0) {
-                JavaPlugin javaPlugin = actionManager.getJavaPlugin();
-                BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
-                if (extras.containsKey("async")) {
-                    bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(replacements), (Integer) extras.get("delay"));
-                } else {
-                    bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(replacements), (Integer) extras.get("delay"));
+    public void execute(Player player, String[][] replacements) {
+        JavaPlugin plugin = actionManager.getJavaPlugin();
+        boolean global = actionInfo.getExtras().containsKey("global");
+        boolean async = actionInfo.getExtras().containsKey("async");
+        int delay = NumberUtil.getInt(String.valueOf(actionInfo.getExtras().get("delay")), 0);
+        String permission = String.valueOf(actionInfo.getExtras().get("permission"));
+
+        Runnable execution = () -> {
+            if (global) {
+                for (Player tempPlayer : plugin.getServer().getOnlinePlayers()) {
+                    if (permission != null) {
+                        if (tempPlayer.hasPermission(permission)) {
+                            executeAction(tempPlayer, replacements);
+                        }
+                    }
                 }
             } else {
-                executeAction(replacements);
+                if (permission != null) {
+                    if (player.hasPermission(permission)) {
+                        executeAction(player, replacements);
+                    }
+                }
             }
-        } else {
-            executeAction(replacements);
-        }
+        };
+
+        SchedulerUtil.runTaskLater(plugin, execution, Math.max(delay, 0), async);
     }
 
     public void execute(Player player) {
         execute(player, new String[][]{});
     }
 
-    public void execute(Player player, String[][] replacements) {
-        if (extras.containsKey("delay")) {
-            if ((Integer) extras.get("delay") > 0) {
-                JavaPlugin javaPlugin = actionManager.getJavaPlugin();
-                BukkitScheduler bukkitScheduler = javaPlugin.getServer().getScheduler();
-                if (extras.containsKey("async")) {
-                    bukkitScheduler.runTaskLaterAsynchronously(javaPlugin, () -> executeAction(player, replacements), (Integer) extras.get("delay"));
-                } else {
-                    bukkitScheduler.runTaskLater(javaPlugin, () -> executeAction(player, replacements), (Integer) extras.get("delay"));
-                }
-            } else {
-                executeAction(player, replacements);
-
-            }
-        } else {
-            executeAction(player, replacements);
-        }
-    }
-
     public String serialize() {
         StringBuilder result = new StringBuilder();
         // Type
-        result.append("[").append(type).append("]");
+        result.append("[").append(actionInfo.getType()).append("]");
         // Content
-        if (!content.isEmpty()) {
-            result.append(" ").append(content).append(" ");
+        if (!actionInfo.getContent().isEmpty()) {
+            result.append(" ").append(actionInfo.getContent()).append(" ");
         }
         // Extra
-        if (!extras.isEmpty()) {
-            for (String extra : extras.keySet()) {
-                if (((String) extras.get(extra)).isEmpty()) {
+        if (!actionInfo.getExtras().isEmpty()) {
+            for (String extra : actionInfo.getExtras().keySet()) {
+                if (((String) actionInfo.getExtras().get(extra)).isEmpty()) {
                     result.append("<").append(extra).append("> ");
                 } else {
-                    result.append("<").append(extra).append("=").append(extras.get(extra).toString()).append(">");
+                    result.append("<").append(extra).append("=").append(actionInfo.getExtras().get(extra).toString()).append(">");
                 }
             }
         }

@@ -1,8 +1,8 @@
 package me.soyaldo.actionapi.actions;
 
 import me.soyaldo.actionapi.models.Action;
-import me.soyaldo.actionapi.util.ActionInfo;
-import me.soyaldo.actionapi.util.PlaceholderApi;
+import me.soyaldo.actionapi.models.ActionInfo;
+import me.soyaldo.actionapi.util.PapiUtil;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -57,7 +57,7 @@ public class SoundAction extends Action {
                 soundFormat = soundFormat.replace(replacement[0], replacement[1]);
             }
             // Apply PlaceholderAPI placeholders.
-            soundFormat = PlaceholderApi.setPlaceholders(player, soundFormat);
+            soundFormat = PapiUtil.setPlaceholders(player, soundFormat);
             // Sound variables.
             Sound sound;
             float volume = 1;
