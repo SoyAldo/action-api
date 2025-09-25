@@ -1,6 +1,6 @@
 package me.soyaldo.actionapi.util;
 
-public class Number {
+public class NumberUtil {
 
     /**
      * Get a number from specific text.
