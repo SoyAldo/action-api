@@ -2,9 +2,8 @@ package me.soyaldo.actionapi.actions;
 
 import me.soyaldo.actionapi.models.Action;
 import me.soyaldo.actionapi.models.ActionInfo;
+import me.soyaldo.actionapi.util.ActionUtil;
 import me.soyaldo.actionapi.util.ChatUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class MessageAction extends Action {
@@ -15,15 +14,12 @@ public class MessageAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        String message = getActionInfo().getContent();
-        ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-        ChatUtil.sendMessage(console, message, replacements);
+        ChatUtil.sendMessage(ActionUtil.getConsole(), getActionInfo().getContent(), replacements);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        String message = getActionInfo().getContent();
-        ChatUtil.sendMessage(player, message, replacements);
+        ChatUtil.sendMessage(player, getActionInfo().getContent(), replacements);
     }
 
 }
