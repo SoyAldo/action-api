@@ -2,6 +2,9 @@ package me.soyaldo.actionapi.actions;
 
 import me.soyaldo.actionapi.models.Action;
 import me.soyaldo.actionapi.models.ActionInfo;
+import me.soyaldo.actionapi.util.ActionUtil;
+import me.soyaldo.actionapi.util.ChatUtil;
+import me.soyaldo.actionapi.util.NumberUtil;
 import me.soyaldo.actionapi.util.PapiUtil;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,69 +17,21 @@ public class SoundAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        // Extras
-        boolean global = getActionInfo().getExtras().containsKey("global");
-        try {
-            String realValue = getActionInfo().getContent();
-            // Apply replacements.
-            for (String[] replacement : replacements) {
-                realValue = realValue.replace(replacement[0], replacement[1]);
-            }
-            // Sound variables.
-            Sound sound;
-            float volume = 1;
-            float pitch = 1;
-            // Setting Sound.
-            if (realValue.contains(" ")) {
-                String[] realValues = realValue.split(" ");
-                sound = Sound.valueOf(realValues[0]);
-                if (realValues.length >= 2) volume = Float.parseFloat(realValues[1]);
-                if (realValues.length >= 3) pitch = Float.parseFloat(realValues[2]);
-            } else {
-                sound = Sound.valueOf(realValue);
-            }
-            // Play sound
-            if (global) {
-                for (Player player : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
-                    player.playSound(player.getLocation(), sound, volume, pitch);
-                }
-            }
-        } catch (IllegalArgumentException ignore) {
-            getActionManager().getJavaPlugin().getLogger().info("Invalid sound format: " + getActionInfo().getContent());
-        }
+        ChatUtil.sendMessage(ActionUtil.getConsole(), getActionInfo().getContent());
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        // Extras
-        boolean global = getActionInfo().getExtras().containsKey("global");
         try {
-            String soundFormat = getActionInfo().getContent();
-            // Apply replacements.
-            for (String[] replacement : replacements) {
-                soundFormat = soundFormat.replace(replacement[0], replacement[1]);
-            }
-            // Apply PlaceholderAPI placeholders.
-            soundFormat = PapiUtil.setPlaceholders(player, soundFormat);
+            String soundName = getActionInfo().getContent();
+            // Apply replacements and PlaceholderAPI
+            soundName = ActionUtil.processTextWithoutColor(getActionInfo().getContent(), player, replacements);
             // Sound variables.
-            Sound sound;
-            float volume = 1;
-            float pitch = 1;
-            // Setting Sound.
-            if (soundFormat.contains(" ")) {
-                String[] realValues = soundFormat.split(" ");
-                sound = Sound.valueOf(realValues[0]);
-                if (realValues.length >= 2) volume = Float.parseFloat(realValues[1]);
-                if (realValues.length >= 3) pitch = Float.parseFloat(realValues[2]);
-            } else {
-                sound = Sound.valueOf(soundFormat);
-            }
-            // Play sound
-            if (global) {
-                for (Player target : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
-                    target.playSound(target.getLocation(), sound, volume, pitch);
-                }
-            }
+            Sound sound = Sound.valueOf(soundName);
+            float volume = NumberUtil.getFloat(String.valueOf(getActionInfo().getExtras().get("volume")), (float) 1.0);
+            float pitch = NumberUtil.getFloat(String.valueOf(getActionInfo().getExtras().get("pitch")), (float) 1.0);
+            // Play the sound
+            player.playSound(player.getLocation(), sound, volume, pitch);
         } catch (IllegalArgumentException ignore) {
             getActionManager().getJavaPlugin().getLogger().info("Invalid sound format: " + getActionInfo().getContent());
         }

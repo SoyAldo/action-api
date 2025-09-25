@@ -7,7 +7,7 @@
 # Acción [message]
 # Con esta acción se podrá enviar un mensaje.
 # Atributos compatibles
-# <global>, <async>, <delay={number}>, <permission={text}>
+# <global>, <permission={text}>, <delay={number}>, <async>
 
 # Mensaje a un jugador
 message: "[message] Hello player!"
@@ -21,7 +21,7 @@ globalMessageWithPermission: "[message] Hello world! <global> <permission=hello.
 # Acción [command]
 # Con esta acción se podrá ejecutar un comando.
 # Atributos compatibles
-# <global>, <permission={text}, <delay={number}>, async
+# <global>, <permission={text}>, <delay={number}>, <async>
 # Atributos especiales
 # <console> => Ejecuta el comando desde la consola
 
@@ -35,11 +35,21 @@ globalCommand: "[command] menu <global>"
 globalCommandWithPermission: "[command] menu <global> <permission=menu.vip>"
 
 # Acción [title]
-# Con esta acción se podrá ejecutar un comando.
+# Con esta acción se podrá enviar títulos.
 # Atributos compatibles
-# <global>, <permission={text}, <delay={number}>, async
+# <global>, <permission={text}>, <delay={number}>, <async>
 # Atributos especiales
 # <fade-in={number}> => Tiempo de aparición
 # <stay={number}> => Tiempo que está en pantalla
 # <fade-out={number}> => Tiempo de desaparición
 title: "[title] Hello World!;everyone <fade-in=20> <stay=100> <fade-out=20>"
+
+# Acción [sound]
+# Con esta acción se podrá reproducir sonidos.
+# Atributos compatibles
+# <global>, <permission={text}>, <delay={number}>, <async>
+# Atributos especiales
+# <volume={0.0-1.0}> => Volumen del sonido
+# <pitch={0.0-1.0}> => Tono del sonido
+sound: "[sound] ENTITY_PLAYER_LEVELUP <volume=1.0> <pitch=1.0>"
+globalSound: "[sound] ENTITY_PLAYER_LEVELUP <volume=1.0> <pitch=1.0> <global>"
