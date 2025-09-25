@@ -10,7 +10,7 @@
     <name>action-api</name>
     <version>4.0.0</version>
     <description>Action API for your minecraft plugins.</description>
-    <url>https://soyaldo.com/plugin/action-api</url>
+    <url>https://soyaldo.me/projects/action-api</url>
 
     <properties>
         <java.version>17</java.version>
