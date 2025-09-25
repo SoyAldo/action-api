@@ -6,24 +6,19 @@ Actions API based on DeluxeMenus and its ease of manipulation during plugin conf
 ## Maven
 ```XML
 <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
+    <id>yosoyaldo</id>
+    <url>https://repo.repsy.io/mvn/yosoyaldo/public</url>
 </repository>
 ```
 
 ```XML
 <dependency>
-    <groupId>com.github.SoyAldo</groupId>
+    <groupId>me.soyaldo</groupId>
     <artifactId>action-api</artifactId>
-    <version>1.7.0</version>
-    <scope>provided</scope>
+    <version>4.0.0</version>
+    <scope>compile</scope>
 </dependency>
 ```
-
-Check the last released version in Releases section
-
-## TODO
-✘ Timed actions.
 
 ## How to use
 https://github.com/SoyAldo/action-api/wiki
