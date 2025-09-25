@@ -22,6 +22,19 @@ public class ActionUtil {
         return modifiedText;
     }
 
+    public static String processTextWithoutColor(String text, Player player, String[][] replacements) {
+        String modifiedText = text;
+        modifiedText = TextUtil.replace(modifiedText, replacements);
+        modifiedText = PapiUtil.setPlaceholders(player, modifiedText);
+        return modifiedText;
+    }
+
+    public static String processTextWithoutColor(String text, String[][] replacements) {
+        String modifiedText = text;
+        modifiedText = TextUtil.replace(modifiedText, replacements);
+        return modifiedText;
+    }
+
     public static ConsoleCommandSender getConsole() {
         return Bukkit.getConsoleSender();
     }
