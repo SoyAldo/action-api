@@ -13,16 +13,65 @@ public class Actions {
         return actions;
     }
 
-    public boolean containAction(Action action) {
-        return actions.contains(action);
+    /**
+     * Check if an action exist by id
+     *
+     * @param id the action id to check
+     * @return true if the action exist o false is not
+     */
+    public boolean containActionById(String id) {
+        for (Action action : actions) {
+            if (action.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    /**
+     * Check if an action exist by id
+     *
+     * @param action the action to check
+     * @return true if the action exist o false is not
+     */
+    public boolean containAction(Action action) {
+        return containActionById(action.getId());
+    }
+
+    /**
+     * Add new action
+     *
+     * @param action the action added
+     */
     public void addAction(Action action) {
         actions.add(action);
     }
 
-    public void removeAction(Action action) {
-        actions.remove(action);
+
+    /**
+     * Remove an action by id
+     *
+     * @param id the action id to remove
+     * @return true if the action has removed o false is not
+     */
+    public boolean removeActionById(String id) {
+        for (Action action : actions) {
+            if (action.getId().equals(id)) {
+                actions.remove(action);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Remove an action
+     *
+     * @param action the action to remove
+     * @return true if the action has removed o false is not
+     */
+    public boolean removeAction(Action action) {
+        return removeActionById(action.getId());
     }
 
     public void execute() {
