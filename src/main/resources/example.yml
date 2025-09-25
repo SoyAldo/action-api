@@ -1,0 +1,18 @@
+# Atributos globales
+# <delay={number}> => Ejecutar acción con un retraso de tiempo.
+# <async> => Ejecutar acción de forma asíncrona.
+
+# Acción [message]
+# Con esta acción se podrá enviar un mensaje.
+# Atributos
+# <global> => Ejecuta el mensaje a todos los jugadores.
+# <permission={permission.node}> => Ejecutar acción si se tiene el permiso.
+
+# Mensaje a un jugador
+message: "[message] Hello player!"
+# Mensaje a un jugador con retraso de tiempo
+timedMessage: "[message] Hello player! <delay=20>"
+# Mensaje a todos los jugadores
+globalMessage: "[message] Hello world! <global>"
+# Mensaje a todos los jugadores que tengan un permiso
+globalMessageWithPermission: "[message] Hello world! <global> <permission=hello.vip>"
