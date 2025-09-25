@@ -23,9 +23,9 @@ public class TitleAction extends Action {
         // Default values.
         String title = getActionInfo().getContent();
         String subTitle = "";
-        int fadeIn = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-in")), 10);
-        int stay = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-in")), 70);
-        int fadeOut = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-in")), 20);
+        int fadeIn = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-in")), 10, 0);
+        int stay = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("stay")), 70, 0);
+        int fadeOut = NumberUtil.getInt(String.valueOf(getActionInfo().getExtras().get("fade-out")), 20, 0);
         // Check title and subtitle
         if (title.contains(";")) {
             String[] values = title.split(";");

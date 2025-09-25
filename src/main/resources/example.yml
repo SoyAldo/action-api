@@ -29,5 +29,17 @@ globalMessageWithPermission: "[message] Hello world! <global> <permission=hello.
 commandFromPlayer: "[command] menu"
 # Comando desde un jugador
 commandFromConsole: "[command] day <console>"
-# Comando desde un jugador
-commandFromAllPlayers: "[command] menu <global>"
+# Comando desde todos los jugadores
+globalCommand: "[command] menu <global>"
+# Comando desde todos los jugadores
+globalCommandWithPermission: "[command] menu <global> <permission=menu.vip>"
+
+# Acción [title]
+# Con esta acción se podrá ejecutar un comando.
+# Atributos compatibles
+# <global>, <permission={text}, <delay={number}>, async
+# Atributos especiales
+# <fade-in={number}> => Tiempo de aparición
+# <stay={number}> => Tiempo que está en pantalla
+# <fade-out={number}> => Tiempo de desaparición
+title: "[title] Hello World!;everyone <fade-in=20> <stay=100> <fade-out=20>"
