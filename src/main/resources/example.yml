@@ -24,7 +24,6 @@ globalMessageWithPermission: "[message] Hello world! <global> <permission=hello.
 # <global>, <permission={text}, <delay={number}>, async
 # Atributos especiales
 # <console> => Ejecuta el comando desde la consola
-# <op> => Ejecuta el comando como un administrador
 
 # Comando desde un jugador
 commandFromPlayer: "[command] menu"

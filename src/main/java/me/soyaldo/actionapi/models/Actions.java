@@ -4,11 +4,37 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Actions {
 
-    private final List<Action> actions = new ArrayList<>();
+    private final String id;
+    private final List<Action> actions;
 
+    public Actions() {
+        id = UUID.randomUUID().toString();
+        actions = new ArrayList<>();
+    }
+
+    public Actions(List<Action> actions) {
+        id = UUID.randomUUID().toString();
+        this.actions = actions;
+    }
+
+    /**
+     * Ge the actions id
+     *
+     * @return the actions id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Get the actions
+     *
+     * @return the actions
+     */
     public List<Action> getActions() {
         return actions;
     }
