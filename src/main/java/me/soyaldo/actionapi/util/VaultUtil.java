@@ -20,9 +20,7 @@ public class VaultUtil {
         ServicesManager servicesManager = server.getServicesManager();
         RegisteredServiceProvider<Economy> registeredServiceProvider = servicesManager.getRegistration(Economy.class);
 
-        if (registeredServiceProvider == null) return false;
-
-        return registeredServiceProvider.getProvider() != null;
+        return registeredServiceProvider != null;
     }
 
     public static Economy getEconomy() {
