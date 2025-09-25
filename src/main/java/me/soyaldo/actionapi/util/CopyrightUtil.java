@@ -16,16 +16,18 @@ public class CopyrightUtil {
     public static void sendVersionStatus(JavaPlugin javaPlugin, CommandSender commandSender, String status) {
         String[] versionStatus = {
                 "&4»",
-                "&4» &caction-api " + status,
+                "&4» &c" + javaPlugin.getDescription().getName() + " " + status,
                 "&4»",
                 "&4» &cVersion: &f" + javaPlugin.getDescription().getVersion(),
-                "&4» &cAuthor: &fSoyAldo",
-                "&4» &cWebsite: &fhttps://soyaldo.com/plugins/action-api",
+                "&4» &cAuthors: &f" + javaPlugin.getDescription().getAuthors(),
+                "&4» &cWebsite: &f" + javaPlugin.getDescription().getWebsite(),
                 "&4»",
                 "&4» &cI love the bread!",
                 "&4»"
         };
-        for (String text : versionStatus) commandSender.sendMessage(ChatColorUtil.translate(text));
+        for (String text : versionStatus) {
+            ChatUtil.sendMessage(commandSender, text);
+        }
     }
 
 }
