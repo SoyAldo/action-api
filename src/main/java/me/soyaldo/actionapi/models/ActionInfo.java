@@ -31,30 +31,48 @@ public class ActionInfo {
                 }
                 continue;
             }
-
             tempContent.append(part).append(" ");
         }
         if (!tempContent.isEmpty()) {
             tempContent = new StringBuilder(tempContent.substring(0, tempContent.length() - 1));
         }
-
         this.type = tempType;
         this.content = tempContent.toString();
         this.extras = tempExtras;
     }
 
+    /**
+     * Get the action manager
+     *
+     * @return the action manager
+     */
     public ActionManager getActionManager() {
         return actionManager;
     }
 
+    /**
+     * Get the action type.
+     *
+     * @return the action type.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Get the content.
+     *
+     * @return The action content if exist or empty.
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * Get a list of extras.
+     *
+     * @return Map of extras.
+     */
     public HashMap<String, Object> getExtras() {
         return extras;
     }
