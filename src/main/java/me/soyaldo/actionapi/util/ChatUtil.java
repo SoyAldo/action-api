@@ -1,8 +1,6 @@
 package me.soyaldo.actionapi.util;
 
-import de.themoep.minedown.MineDown;
 import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -12,19 +10,6 @@ import java.util.List;
 
 public class ChatUtil {
 
-    public static BaseComponent[] colorize(String text) {
-        return MineDown.parse(text);
-    }
-
-    public static String colorizeLegacy(String text) {
-        StringBuilder result = new StringBuilder();
-        for (BaseComponent component : MineDown.parse(text)) {
-            result.append(component.toLegacyText()).append(" ");
-        }
-        result = new StringBuilder(result.substring(0, result.length() - 1));
-        return result.toString();
-    }
-
     public static void sendMessage(List<Player> players, String message, String[][] replacements) {
         // Apply the replacements
         message = TextUtil.replace(message, replacements);
@@ -33,7 +18,7 @@ public class ChatUtil {
             // Apply the variables from PlaceholderAPI.
             message = PapiUtil.setPlaceholders(player, message);
             // Send the message to the player.
-            player.spigot().sendMessage(colorize(message));
+            player.spigot().sendMessage(ColorUtil.colorize(message));
         }
     }
 
@@ -53,7 +38,7 @@ public class ChatUtil {
         // Apply the replacements
         message = TextUtil.replace(message, replacements);
         // Send the message to the console.
-        console.spigot().sendMessage(colorize(message));
+        console.spigot().sendMessage(ColorUtil.colorize(message));
     }
 
     public static void sendMessage(ConsoleCommandSender console, String message) {
@@ -80,7 +65,7 @@ public class ChatUtil {
             // Apply the variables from PlaceholderAPI.
             message = PapiUtil.setPlaceholders(player, message);
             // Send the message to the player.
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, colorize(message));
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, ColorUtil.colorize(message));
         }
     }
 
