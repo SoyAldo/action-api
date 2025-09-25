@@ -4,7 +4,7 @@ name: "action-api"
 description: "Action API for your minecraft plugins."
 version: "4.0.0"
 author: "SoyAldo"
-website: "https://soyaldo.me/project/action-api"
+website: "https://soyaldo.me/projects/action-api"
 
 api-version: "1.18"
 softdepend:
