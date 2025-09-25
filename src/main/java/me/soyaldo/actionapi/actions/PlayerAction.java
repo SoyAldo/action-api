@@ -21,7 +21,7 @@ public class PlayerAction extends Action {
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        String command = getContent();
+        String command = getActionInfo().getContent();
         // Apply replacements
         command = TextUtil.replace(command, replacements);
         // Apply PlaceholderAPI

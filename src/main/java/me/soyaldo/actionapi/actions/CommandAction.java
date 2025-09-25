@@ -19,7 +19,7 @@ public class CommandAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        String command = getContent();
+        String command = getActionInfo().getContent();
         // Apply replacements
         command = TextUtil.replace(command, replacements);
         // Apply color
@@ -33,7 +33,7 @@ public class CommandAction extends Action {
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        String command = getContent();
+        String command = getActionInfo().getContent();
         // Apply replacements
         command = TextUtil.replace(command, replacements);
         // Apply PlaceholderAPI
@@ -43,7 +43,7 @@ public class CommandAction extends Action {
         // Execute command
         JavaPlugin plugin = getActionManager().getJavaPlugin();
         ConsoleCommandSender console = getActionManager().getJavaPlugin().getServer().getConsoleSender();
-        CommandSender dispatcher = getExtras().containsKey("console") ? console : player;
+        CommandSender dispatcher = getActionInfo().getExtras().containsKey("console") ? console : player;
         String finalCommand = command;
         SchedulerUtil.runTaskLaterSync(plugin, () -> plugin.getServer().dispatchCommand(dispatcher, finalCommand));
     }

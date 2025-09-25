@@ -15,10 +15,10 @@ public class TitleAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        if (getContent().isEmpty()) return;
-        if (!getExtras().containsKey("global")) return;
+        if (getActionInfo().getContent().isEmpty()) return;
+        if (!getActionInfo().getExtras().containsKey("global")) return;
 
-        String content = getContent();
+        String content = getActionInfo().getContent();
         // Default values.
         String title;
         String subTitle = "";
@@ -63,8 +63,8 @@ public class TitleAction extends Action {
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        if (getContent().isEmpty()) return;
-        String content = getContent();
+        if (getActionInfo().getContent().isEmpty()) return;
+        String content = getActionInfo().getContent();
         // Default values.
         String title;
         String subTitle = "";

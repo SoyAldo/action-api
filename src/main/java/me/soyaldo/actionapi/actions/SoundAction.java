@@ -15,9 +15,9 @@ public class SoundAction extends Action {
     @Override
     public void executeAction(String[][] replacements) {
         // Extras
-        boolean global = getExtras().containsKey("global");
+        boolean global = getActionInfo().getExtras().containsKey("global");
         try {
-            String realValue = getContent();
+            String realValue = getActionInfo().getContent();
             // Apply replacements.
             for (String[] replacement : replacements) {
                 realValue = realValue.replace(replacement[0], replacement[1]);
@@ -42,16 +42,16 @@ public class SoundAction extends Action {
                 }
             }
         } catch (IllegalArgumentException ignore) {
-            getActionManager().getJavaPlugin().getLogger().info("Invalid sound format: " + getContent());
+            getActionManager().getJavaPlugin().getLogger().info("Invalid sound format: " + getActionInfo().getContent());
         }
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
         // Extras
-        boolean global = getExtras().containsKey("global");
+        boolean global = getActionInfo().getExtras().containsKey("global");
         try {
-            String soundFormat = getContent();
+            String soundFormat = getActionInfo().getContent();
             // Apply replacements.
             for (String[] replacement : replacements) {
                 soundFormat = soundFormat.replace(replacement[0], replacement[1]);
@@ -78,7 +78,7 @@ public class SoundAction extends Action {
                 }
             }
         } catch (IllegalArgumentException ignore) {
-            getActionManager().getJavaPlugin().getLogger().info("Invalid sound format: " + getContent());
+            getActionManager().getJavaPlugin().getLogger().info("Invalid sound format: " + getActionInfo().getContent());
         }
     }
 

@@ -1,12 +1,13 @@
 # Atributos globales
 # <global> => Ejecuta el mensaje a todos los jugadores.
-# <permission={permission.node}> => Ejecutar acción si se tiene el permiso.
+# <permission={text}> => Ejecutar acción si se tiene el permiso.
 # <delay={number}> => Ejecutar acción con un retraso de tiempo.
 # <async> => Ejecutar acción de forma asíncrona.
 
 # Acción [message]
 # Con esta acción se podrá enviar un mensaje.
-# Atributos
+# Atributos compatibles
+# <global>, <async>, <delay={number}>, <permission={text}>
 
 # Mensaje a un jugador
 message: "[message] Hello player!"

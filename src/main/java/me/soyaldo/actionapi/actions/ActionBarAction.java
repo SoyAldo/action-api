@@ -15,14 +15,14 @@ public class ActionBarAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        String message = getContent();
+        String message = getActionInfo().getContent();
         ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
         ChatUtil.sendMessage(console, message);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        String message = getContent();
+        String message = getActionInfo().getContent();
         ChatUtil.sendActionBar(player, message, replacements);
     }
 

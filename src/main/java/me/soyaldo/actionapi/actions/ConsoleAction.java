@@ -18,7 +18,7 @@ public class ConsoleAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        String command = getContent();
+        String command = getActionInfo().getContent();
         // Apply replacements
         command = TextUtil.replace(command, replacements);
         // Apply color
@@ -33,7 +33,7 @@ public class ConsoleAction extends Action {
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        String command = getContent();
+        String command = getActionInfo().getContent();
         // Apply Replacements
         command = TextUtil.replace(command, replacements);
         // Apply PlaceholderAPI
