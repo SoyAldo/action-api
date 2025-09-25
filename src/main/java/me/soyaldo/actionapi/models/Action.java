@@ -6,14 +6,22 @@ import me.soyaldo.actionapi.util.SchedulerUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.UUID;
+
 public abstract class Action {
 
+    private final String id;
     private final ActionManager actionManager;
     private final ActionInfo actionInfo;
 
     public Action(ActionInfo actionInfo) {
+        id = UUID.randomUUID().toString();
         this.actionManager = actionInfo.getActionManager();
         this.actionInfo = actionInfo;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public ActionManager getActionManager() {
@@ -34,8 +42,7 @@ public abstract class Action {
         boolean async = actionInfo.getExtras().containsKey("async");
         int delay = NumberUtil.getInt(String.valueOf(actionInfo.getExtras().get("delay")), 0);
         String permission = String.valueOf(actionInfo.getExtras().get("permission"));
-
-        Runnable execution = () -> {
+        SchedulerUtil.runTaskLater(plugin, () -> {
             if (global) {
                 for (Player tempPlayer : plugin.getServer().getOnlinePlayers()) {
                     if (permission != null) {
@@ -47,9 +54,7 @@ public abstract class Action {
             } else {
                 executeAction(replacements);
             }
-        };
-
-        SchedulerUtil.runTaskLater(plugin, execution, Math.max(delay, 0), async);
+        }, Math.max(delay, 0), async);
     }
 
     public void execute() {
@@ -62,8 +67,7 @@ public abstract class Action {
         boolean async = actionInfo.getExtras().containsKey("async");
         int delay = NumberUtil.getInt(String.valueOf(actionInfo.getExtras().get("delay")), 0);
         String permission = String.valueOf(actionInfo.getExtras().get("permission"));
-
-        Runnable execution = () -> {
+        SchedulerUtil.runTaskLater(plugin, () -> {
             if (global) {
                 for (Player tempPlayer : plugin.getServer().getOnlinePlayers()) {
                     if (permission != null) {
@@ -79,9 +83,7 @@ public abstract class Action {
                     }
                 }
             }
-        };
-
-        SchedulerUtil.runTaskLater(plugin, execution, Math.max(delay, 0), async);
+        }, Math.max(delay, 0), async);
     }
 
     public void execute(Player player) {
