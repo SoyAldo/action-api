@@ -1,10 +1,18 @@
 package me.soyaldo.actionapi.actions;
 
 import me.soyaldo.actionapi.models.Action;
-import me.soyaldo.actionapi.util.ActionInfo;
-import me.soyaldo.actionapi.util.PlaceholderApi;
+import me.soyaldo.actionapi.models.ActionInfo;
+import me.soyaldo.actionapi.util.ChatUtil;
+import me.soyaldo.actionapi.util.PapiUtil;
 import de.themoep.minedown.MineDown;
+import me.soyaldo.actionapi.util.TextUtil;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class BroadcastAction extends Action {
 
@@ -16,30 +24,18 @@ public class BroadcastAction extends Action {
     public void executeAction(String[][] replacements) {
         // Created a variable that will be the message.
         String message = getContent();
-        // Replacements
-        for (String[] replacement : replacements) {
-            message = message.replace(replacement[0], replacement[1]);
-        }
         // Send the message to the entire server.
-        for (Player target : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
-            target.spigot().sendMessage(MineDown.parse(message));
-        }
+        List<Player> players = new ArrayList<>(getActionManager().getJavaPlugin().getServer().getOnlinePlayers());
+        ChatUtil.sendMessage(players, message, replacements);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
         // Created a variable that will be the message.
         String message = getContent();
-        // Replacements
-        for (String[] replacement : replacements) {
-            message = message.replace(replacement[0], replacement[1]);
-        }
-        // Apply the variables from PlaceholderAPI.
-        message = PlaceholderApi.setPlaceholders(player, message);
         // Send the message to the entire server.
-        for (Player target : getActionManager().getJavaPlugin().getServer().getOnlinePlayers()) {
-            target.spigot().sendMessage(MineDown.parse(message));
-        }
+        List<Player> players = new ArrayList<>(getActionManager().getJavaPlugin().getServer().getOnlinePlayers());
+        ChatUtil.sendMessage(players, message, replacements);
     }
 
 }
