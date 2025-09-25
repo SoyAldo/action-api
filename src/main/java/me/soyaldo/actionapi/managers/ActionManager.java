@@ -32,7 +32,6 @@ public class ActionManager {
         expansions.clear();
         // Adding default expansion.
         addExpansion(new ActionBarExpansion());
-        addExpansion(new BroadcastExpansion());
         addExpansion(new CommandExpansion());
         addExpansion(new ConsoleExpansion());
         addExpansion(new MessageExpansion());

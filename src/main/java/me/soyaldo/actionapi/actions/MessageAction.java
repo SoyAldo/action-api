@@ -17,14 +17,14 @@ public class MessageAction extends Action {
 
     @Override
     public void executeAction(String[][] replacements) {
-        String message = getContent();
+        String message = getActionInfo().getContent();
         ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
         ChatUtil.sendMessage(console, message, replacements);
     }
 
     @Override
     public void executeAction(Player player, String[][] replacements) {
-        String message = getContent();
+        String message = getActionInfo().getContent();
         ChatUtil.sendMessage(player, message, replacements);
     }
 
