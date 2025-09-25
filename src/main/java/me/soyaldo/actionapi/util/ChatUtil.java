@@ -3,6 +3,7 @@ package me.soyaldo.actionapi.util;
 import de.themoep.minedown.MineDown;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
@@ -57,6 +58,18 @@ public class ChatUtil {
 
     public static void sendMessage(ConsoleCommandSender console, String message) {
         sendMessage(console, message, new String[][]{});
+    }
+
+    public static void sendMessage(CommandSender sender, String message, String[][] replacements) {
+        if (sender instanceof Player) {
+            sendMessage((Player) sender, message, replacements);
+        } else {
+            sendMessage((ConsoleCommandSender) sender, message, replacements);
+        }
+    }
+
+    public static void sendMessage(CommandSender sender, String message) {
+        sendMessage(sender, message, new String[][]{});
     }
 
     public static void sendActionBar(List<Player> players, String message, String[][] replacements) {
