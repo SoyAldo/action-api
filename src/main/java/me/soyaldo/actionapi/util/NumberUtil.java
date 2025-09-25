@@ -4,8 +4,25 @@ public class NumberUtil {
 
     /**
      * Get a number from specific text.
+     *
      * @param text The string number.
-     * @param def The default value if the text not is a text.
+     * @param def  The default value if the text not is a text.
+     * @param min  The minimum value
+     * @return The text parsed or default value.
+     */
+    public static int getInt(String text, int def, int min) {
+        try {
+            return Math.max(Integer.parseInt(text), min);
+        } catch (NumberFormatException ignore) {
+            return def;
+        }
+    }
+
+    /**
+     * Get a number from specific text.
+     *
+     * @param text The string number.
+     * @param def  The default value if the text not is a text.
      * @return The text parsed or default value.
      */
     public static int getInt(String text, int def) {
